@@ -32,7 +32,7 @@ class Calculator {
     private let operatorAvailable: Set = ["+", "-"]
 
     // Error check computed variables
-    var expressionIsCorrect: Bool {
+    private var expressionIsCorrect: Bool {
         if elements.count >= 1 {
             return !operatorAvailable.contains(elements.last!)
         }else {
@@ -41,22 +41,22 @@ class Calculator {
     }
     // check if expression have enough element to bild a calcule
     // @return true if have neough
-    var expressionHaveEnoughElement: Bool {
+    private var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
 
     // @return true if last element is not a operator
-    var canAddOperator: Bool {
+    private var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-"
     }
 
     // return true if expression have alreay result
-    var expressionHaveResult: Bool {
+    private var expressionHaveResult: Bool {
         return elements.firstIndex(of: "=") != nil
     }
 
     // return true if last element is 0
-    var lastElementIsZero: Bool{
+    private var lastElementIsZero: Bool{
         return elements.last == "0"
     }
 
