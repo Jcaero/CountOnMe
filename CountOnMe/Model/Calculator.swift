@@ -10,20 +10,20 @@ import Foundation
 
 protocol CalculatorDelegate {
     func showAlert(title: String, description: String)
-    func updateDispay(_ expression: String)
+    func updateDisplay(_ formula: String)
 }
 
 class Calculator {
 
+    // Delegate
     private let calculatorDelegate: CalculatorDelegate
-    
     init(delegate: CalculatorDelegate) {
         self.calculatorDelegate = delegate
         expression = ""
     }
 
+    // Expression
     private var expression: String
-
     private var elements: [String] {
         return expression.split(separator: " ").map { "\($0)" }
     }
@@ -31,14 +31,6 @@ class Calculator {
     // delaration of available opérator
     private let operatorAvailable: Set = ["+", "-"]
 
-    // Error check computed variables
-    private var expressionIsCorrect: Bool {
-        if elements.count >= 1 {
-            return !operatorAvailable.contains(elements.last!)
-        }else {
-            return false
-        }
-    }
     // check if expression have enough element to bild a calcule
     // @return true if have neough
     private var expressionHaveEnoughElement: Bool {
@@ -60,9 +52,7 @@ class Calculator {
         return elements.last == "0"
     }
 
-    // check if it possible and add selected number
     func numberHasBeenTapped(_ selection: String) {
-
         // clear expression if already have result
         if expressionHaveResult { expression = "" }
 
@@ -73,7 +63,7 @@ class Calculator {
 
         // add number to expression and update display
         expression += selection
-        calculatorDelegate.updateDispay(expression)
+        calculatorDelegate.updateDisplay(expression)
     }
 
     func operateurHasBeenTapped(_ selection: String){
@@ -83,17 +73,19 @@ class Calculator {
                                          description: "Démarrez un nouveau calcul !");
             return
         }
-        
+
         // if last elements is a operator, show alerte
         guard canAddOperator else {
             calculatorDelegate.showAlert(title: "Zéro!",
                                         description: "Démarrez un nouveau calcul !");
             return
         }
-        
+
+        // Put space around operator and add in mathematical formula
         let operatorToAdd = " " + selection + " "
         expression.append(operatorToAdd)
-        calculatorDelegate.updateDispay(expression)
+        
+        calculatorDelegate.updateDisplay(expression)
     }
 
     func egalHasBeenTapped() {
@@ -105,6 +97,7 @@ class Calculator {
             return
         }
 
+        // expression have not result yet
         guard !expressionHaveResult else {
             calculatorDelegate.showAlert(title: "Zéro!",
                                          description: "Démarrez un nouveau calcul !")
@@ -112,10 +105,12 @@ class Calculator {
         }
 
         calcul()
-        calculatorDelegate.updateDispay(expression)
+        calculatorDelegate.updateDisplay(expression)
     }
 
-    private func calcul(){
+    //calcule with elements of expression
+    // put result at the end of expression
+    private func calcul() {
         // Create local copy of operations
         var operationsToReduce = elements
 
