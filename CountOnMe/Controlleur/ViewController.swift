@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         guard let operatorText = sender.title(for: .normal) else {
             return
         }
-        calculate.operateurHasBeenTapped(operatorText)
+        calculate.operatorHasBeenTapped(operatorText)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
@@ -49,8 +49,8 @@ extension ViewController : CalculatorDelegate {
         return self.present(alertVC, animated: true, completion: nil)
     }
 
-    func updateDisplay(_ formula: String) {
-        textView.text = formula
+    func updateDisplay(_ expression: String) {
+        textView.text = expression
     }
 
 }

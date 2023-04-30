@@ -10,7 +10,7 @@ import Foundation
 
 protocol CalculatorDelegate {
     func showAlert(title: String, description: String)
-    func updateDisplay(_ formula: String)
+    func updateDisplay(_ expression: String)
 }
 
 class Calculator {
@@ -66,7 +66,7 @@ class Calculator {
         calculatorDelegate.updateDisplay(expression)
     }
 
-    func operateurHasBeenTapped(_ selection: String){
+    func operatorHasBeenTapped(_ selection: String){
         // if expression have result, show alerte
         guard !elements.contains("=") else {
             calculatorDelegate.showAlert(title: "Zéro!",
@@ -77,7 +77,7 @@ class Calculator {
         // if last elements is a operator, show alerte
         guard canAddOperator else {
             calculatorDelegate.showAlert(title: "Zéro!",
-                                        description: "Démarrez un nouveau calcul !");
+                                        description: "Entrez une expression correcte !");
             return
         }
 
@@ -106,6 +106,10 @@ class Calculator {
 
         calcul()
         calculatorDelegate.updateDisplay(expression)
+    }
+    
+    func resetExpression(){
+        expression = "0"
     }
 
     //calcule with elements of expression
