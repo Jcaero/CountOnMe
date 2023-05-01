@@ -56,9 +56,21 @@ class Calculator {
     private var elementsHavePrimaryOperator: Bool {
         return elements.contains("*")
     }
-
+    
+    // return true if last element is divide operator
+    private var lastElementIsDivideOperator: Bool {
+        return elements.last == "/"
+    }
 
     func numberHasBeenTapped(_ selection: String) {
+        
+        // check if selection is Zero and last operator is divide
+        guard !(lastElementIsDivideOperator && selection == "0") else {
+            calculatorDelegate.showAlert(title: "Erreur",
+                                         description: "Vous ne pouvez pas diviser par 0");
+            return
+        }
+        
         // clear expression if already have result
         if expressionHaveResult { expression = "" }
 
@@ -123,37 +135,36 @@ class Calculator {
     private func calcul() {
         // Create local copy of operations
         var operationsToReduce = elements
+        var result: Int
+        var index: Int
         
-        // check if had primary operator
-        while operationsToReduce.contains("*") {
-            let index: Int = operationsToReduce.firstIndex(of: "*")!
+        // calculate until expression have result
+        while operationsToReduce.count > 1 {
+        
+        // ientifie primary operator
+            if let primaryindex = operationsToReduce.firstIndex(where: {$0 == "*" || $0 == "/" }) {
+                index = primaryindex
+            } else {
+                index = 1
+            }
             
             let left = Int(operationsToReduce[index-1])!
+            let operand = operationsToReduce[index]
             let right = Int(operationsToReduce[index+1])!
-            
-            let result = left * right
-            
-            operationsToReduce.insert(String(result), at: index-1)
-            operationsToReduce.remove(at: index)
-            operationsToReduce.remove(at: index)
-            operationsToReduce.remove(at: index)
-        }
-
-        // Iterate over operations while an operand still here
-        while operationsToReduce.count > 1 {
-            let left = Int(operationsToReduce[0])!
-            let operand = operationsToReduce[1]
-            let right = Int(operationsToReduce[2])!
-
-            let result: Int
+        
             switch operand {
             case "+": result = left + right
             case "-": result = left - right
+            case "*": result = left * right
+            case "/": result = left / right
             default: fatalError("Unknown operator !")
             }
-
-            operationsToReduce = Array(operationsToReduce.dropFirst(3))
-            operationsToReduce.insert("\(result)", at: 0)
+        
+            operationsToReduce.insert(String(result), at: index-1)
+            
+            for _ in 0...2 {
+            operationsToReduce.remove(at: index)
+            }
         }
         expression += " = " + operationsToReduce[0]
     }

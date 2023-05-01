@@ -186,6 +186,28 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "2 + 5 * 5 = 27")
     }
     
+    // test for Divide
+    func testExpressionIsTenDivideTwo_WhenTapEgal_ExpressionFive() {
+        calculate.numberHasBeenTapped("1")
+        calculate.numberHasBeenTapped("0")
+        calculate.operatorHasBeenTapped("/")
+        calculate.numberHasBeenTapped("2")
+
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "10 / 2 = 5")
+    }
+    
+    func testExpressionIsOneDivide_WhenTapZero_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("1")
+        calculate.operatorHasBeenTapped("/")
+        
+        calculate.numberHasBeenTapped("0")
+
+        XCTAssertEqual(display, "1 / ")
+        XCTAssertEqual(alerteDesciption, "Vous ne pouvez pas diviser par 0")
+    }
+    
 }
 
 extension CalculatorTests: CalculatorDelegate {
