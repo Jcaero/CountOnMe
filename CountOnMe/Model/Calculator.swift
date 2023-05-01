@@ -29,7 +29,7 @@ class Calculator {
     }
 
     // delaration of available opérator
-    private let operatorAvailable: Set = ["+", "-"]
+    private let operatorAvailable: Set = ["+", "-", "*"]
 
     // check if expression have enough element to bild a calcule
     // @return true if have neough
@@ -48,9 +48,15 @@ class Calculator {
     }
 
     // return true if last element is 0
-    private var lastElementIsZero: Bool{
+    private var lastElementIsZero: Bool {
         return elements.last == "0"
     }
+    
+    // return true if element have priary operator inside
+    private var elementsHavePrimaryOperator: Bool {
+        return elements.contains("*")
+    }
+
 
     func numberHasBeenTapped(_ selection: String) {
         // clear expression if already have result
@@ -117,6 +123,21 @@ class Calculator {
     private func calcul() {
         // Create local copy of operations
         var operationsToReduce = elements
+        
+        // check if had primary operator
+        while operationsToReduce.contains("*") {
+            let index: Int = operationsToReduce.firstIndex(of: "*")!
+            
+            let left = Int(operationsToReduce[index-1])!
+            let right = Int(operationsToReduce[index+1])!
+            
+            let result = left * right
+            
+            operationsToReduce.insert(String(result), at: index-1)
+            operationsToReduce.remove(at: index)
+            operationsToReduce.remove(at: index)
+            operationsToReduce.remove(at: index)
+        }
 
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {

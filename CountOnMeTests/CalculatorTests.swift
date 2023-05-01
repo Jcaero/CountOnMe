@@ -161,6 +161,31 @@ class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(display, "2 - 10 = -8")
     }
+    
+    // test for *
+    func testExpressionIsTwoMutiplieTen_WhenTapEgal_ExpressionTwenty() {
+        calculate.numberHasBeenTapped("2")
+        calculate.operatorHasBeenTapped("*")
+        calculate.numberHasBeenTapped("1")
+        calculate.numberHasBeenTapped("0")
+        
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "2 * 10 = 20")
+    }
+    
+    func testExpressionIsTwoPlusFiveMultiplieFive_WhenTapEgal_ExpressionTwentySeven() {
+        calculate.numberHasBeenTapped("2")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("*")
+        calculate.numberHasBeenTapped("5")
+        
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "2 + 5 * 5 = 27")
+    }
+    
 }
 
 extension CalculatorTests: CalculatorDelegate {
