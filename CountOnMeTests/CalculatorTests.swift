@@ -226,7 +226,33 @@ class CalculatorTests: XCTestCase {
         calculate.egalHasBeenTapped()
 
         XCTAssertEqual(display, "4 / 3 = 1.333")
+    }
+    
+    func testExpressionIsElevenPointTwoPlusOnePointFive_WhenTapEgal_ExpressionIsTwelvePointSeven() {
+        calculate.numberHasBeenTapped("1")
+        calculate.numberHasBeenTapped("1")
+        calculate.pointHasBeenTapped()
+        calculate.numberHasBeenTapped("2")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("1")
+        calculate.pointHasBeenTapped()
+        calculate.numberHasBeenTapped("5")
         
+        calculate.egalHasBeenTapped()
+
+        XCTAssertEqual(display, "11.2 + 1.5 = 12.7")
+    }
+    
+    func testExpressionIsElevenPointTwo_WhenTapPoint_ExpressionNotChangeAndShowAlerte(){
+        calculate.numberHasBeenTapped("1")
+        calculate.numberHasBeenTapped("1")
+        calculate.pointHasBeenTapped()
+        calculate.numberHasBeenTapped("2")
+        
+        calculate.pointHasBeenTapped()
+        
+        XCTAssertEqual(display, "11.2")
+        XCTAssertEqual(alerteDesciption, "Vous ne pouvez mettre qu'une virgule")
     }
 }
 

@@ -178,4 +178,15 @@ class Calculator {
         }
         expression += " = " + operationsToReduce[0]
     }
+    
+    func pointHasBeenTapped() {
+        if let lastElements = elements.last {
+            guard lastElements.contains(".") == false else
+            {calculatorDelegate.showAlert(title: "Virgule",
+                                          description: "Vous ne pouvez mettre qu'une virgule");
+            return
+            }
+        }
+        expression.append(".")
+    }
 }
