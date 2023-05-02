@@ -160,6 +160,8 @@ class Calculator {
             default: fatalError("Unknown operator !")
             }
             
+            result = round(result * 1000) / 1000.0
+            
             // check if number not finish with .0 or remove it
             var stringResult = String(result)
             

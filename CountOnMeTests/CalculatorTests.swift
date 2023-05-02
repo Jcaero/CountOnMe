@@ -217,6 +217,17 @@ class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(display, "5 / 2 = 2.5")
     }
+    
+    func testExpressionIsFourDivideByThree_WhenTapEgal_ExpressionIsOnePointThree() {
+        calculate.numberHasBeenTapped("4")
+        calculate.operatorHasBeenTapped("/")
+        calculate.numberHasBeenTapped("3")
+        
+        calculate.egalHasBeenTapped()
+
+        XCTAssertEqual(display, "4 / 3 = 1.333")
+        
+    }
 }
 
 extension CalculatorTests: CalculatorDelegate {
