@@ -129,11 +129,12 @@ class Calculator {
     // clear last element or all alement depend of selection:
     // C clear last
     // AC clear all
-    func resetExpression(_ selection: String){
+    func clearExpression(_ selection: String){
         if selection == "C" {
-            
+            // check if one elements existe
             guard let lastElement = elements.last else {return}
             
+            // init range for remove String
             var start: String.Index
             if operatorAvailable.contains(lastElement) {
                 start = expression.index(expression.endIndex, offsetBy: -3)
@@ -143,9 +144,11 @@ class Calculator {
             
             let stop = expression.index(expression.endIndex, offsetBy: -1)
             
+            // remove last element
             expression.removeSubrange(start...stop)
             
         } else {
+            // AC selection : clear expression
             expression = "0"
         }
         calculatorDelegate.updateDisplay(expression)
@@ -184,16 +187,8 @@ class Calculator {
             // round result with 3 after point
             result = round(result * 1000) / 1000.0
             
-            // check if number not finish with .0 or remove it
-            var stringResult = String(result)
-            
-            if stringResult.last == "0" {
-                stringResult.removeLast()
-                stringResult.removeLast()
-            }
-            
             // put answer in expression
-            operationsToReduce.insert(stringResult, at: index-1)
+            operationsToReduce.insert(convertInString(result), at: index-1)
             
             // remove number and operator used from expression
             operationsToReduce.removeSubrange(index...index+2)
@@ -201,6 +196,7 @@ class Calculator {
         expression += " = " + operationsToReduce[0]
     }
     
+    // put point for number with decimal
     func pointHasBeenTapped() {
         if let lastElements = elements.last {
             // check if last number have already a point
@@ -218,5 +214,31 @@ class Calculator {
             }
         }
         expression.append(".")
+    }
+    
+    // change sign of last number
+    func changeSignTapped(){
+        guard let lastElement = elements.last else {return}
+        guard !operatorAvailable.contains(lastElement) else {return}
+        guard lastElement != "0" else {return}
+        guard var lastNumber = Double(lastElement) else {return}
+        
+        lastNumber = lastNumber * -1
+        
+        clearExpression("C")
+        expression.append(convertInString(lastNumber))
+        
+        calculatorDelegate.updateDisplay(expression)
+    }
+    
+    private func convertInString(_ double: Double) -> String {
+        var stringDouble = String(double)
+        
+        // remove last if finish with .0
+        if stringDouble.last == "0" {
+            stringDouble.removeLast()
+            stringDouble.removeLast()
+        }
+        return stringDouble
     }
 }

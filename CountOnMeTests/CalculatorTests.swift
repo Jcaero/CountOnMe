@@ -23,7 +23,7 @@ class CalculatorTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        calculate.resetExpression("AC")
+        calculate.clearExpression("AC")
     }
     
     //test for AddNumberTap
@@ -36,7 +36,7 @@ class CalculatorTests: XCTestCase {
     }
     
     func testExpressionIsZero_WhenTapFive_ResultIsFive() {
-        calculate.resetExpression("AC")
+        calculate.clearExpression("AC")
         
         calculate.numberHasBeenTapped("5")
 
@@ -271,7 +271,7 @@ class CalculatorTests: XCTestCase {
         calculate.operatorHasBeenTapped("+")
         calculate.numberHasBeenTapped("5")
         
-        calculate.resetExpression("C")
+        calculate.clearExpression("C")
         
         XCTAssertEqual(display, "5 + ")
     }
@@ -280,7 +280,7 @@ class CalculatorTests: XCTestCase {
         calculate.numberHasBeenTapped("5")
         calculate.operatorHasBeenTapped("+")
         
-        calculate.resetExpression("C")
+        calculate.clearExpression("C")
         
         XCTAssertEqual(display, "5")
     }
@@ -289,11 +289,55 @@ class CalculatorTests: XCTestCase {
         calculate.numberHasBeenTapped("5")
         calculate.operatorHasBeenTapped("+")
         
-        calculate.resetExpression("AC")
+        calculate.clearExpression("AC")
         
         XCTAssertEqual(display, "0")
     }
+        
+    func testExpressionIsFiveZero_WhenChangeSigneTap_ExpressionIsLessFive() {
+        calculate.numberHasBeenTapped("50")
+        
+        calculate.changeSignTapped()
+        
+        XCTAssertEqual(display, "-50")
+    }
     
+    func testExpressionIsLessFiveZero_WhenChangeSigneTap_ExpressionIsLessFive() {
+        calculate.numberHasBeenTapped("-50")
+        
+        calculate.changeSignTapped()
+        
+        XCTAssertEqual(display, "50")
+    }
+    
+    func testExpressionIsFivePlus_WhenChangeSigneTap_ExpressionNotChange() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        
+        calculate.changeSignTapped()
+        
+        XCTAssertEqual(display, "5 + ")
+    }
+    
+    func testExpressionIsFivePlusZero_WhenChangeSigneTap_ExpressionNotChange() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("0")
+        
+        calculate.changeSignTapped()
+        
+        XCTAssertEqual(display, "5 + 0")
+    }
+    
+    func testExpressionIsFivePlusTwo_WhenChangeSigneTap_ExpressionIsFivePlusLessTwo() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("2")
+        
+        calculate.changeSignTapped()
+        
+        XCTAssertEqual(display, "5 + -2")
+    }
 }
 
 extension CalculatorTests: CalculatorDelegate {
