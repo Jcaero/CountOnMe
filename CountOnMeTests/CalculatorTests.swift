@@ -208,6 +208,15 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(alerteDesciption, "Vous ne pouvez pas diviser par 0")
     }
     
+    func testExpressionIsFiveDivideTwo_WhenTapEgal_ExpressionResultIsTwoPointFive() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("/")
+        calculate.numberHasBeenTapped("2")
+        
+        calculate.egalHasBeenTapped()
+
+        XCTAssertEqual(display, "5 / 2 = 2.5")
+    }
 }
 
 extension CalculatorTests: CalculatorDelegate {

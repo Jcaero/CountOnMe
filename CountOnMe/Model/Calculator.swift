@@ -135,7 +135,7 @@ class Calculator {
     private func calcul() {
         // Create local copy of operations
         var operationsToReduce = elements
-        var result: Int
+        var result: Double
         var index: Int
         
         // calculate until expression have result
@@ -148,9 +148,9 @@ class Calculator {
                 index = 1
             }
             
-            let left = Int(operationsToReduce[index-1])!
+            let left = Double(operationsToReduce[index-1])!
             let operand = operationsToReduce[index]
-            let right = Int(operationsToReduce[index+1])!
+            let right = Double(operationsToReduce[index+1])!
         
             switch operand {
             case "+": result = left + right
@@ -159,12 +159,20 @@ class Calculator {
             case "/": result = left / right
             default: fatalError("Unknown operator !")
             }
-        
-            operationsToReduce.insert(String(result), at: index-1)
             
-            for _ in 0...2 {
-            operationsToReduce.remove(at: index)
+            // check if number not finish with .0 or remove it
+            var stringResult = String(result)
+            
+            if stringResult.last == "0" {
+                stringResult.removeLast()
+                stringResult.removeLast()
             }
+            
+            // put answer in expression
+            operationsToReduce.insert(stringResult, at: index-1)
+            
+            // remove number and operator used from expression
+            operationsToReduce.removeSubrange(index...index+2)
         }
         expression += " = " + operationsToReduce[0]
     }
