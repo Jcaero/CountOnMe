@@ -29,7 +29,7 @@ class Calculator {
     }
 
     // delaration of available opérator
-    private let operatorAvailable: Set = ["+", "-", "*"]
+    private let operatorAvailable: Set = ["+", "-", "*", "/"]
 
     // check if expression have enough element to bild a calcule
     // @return true if have neough
@@ -126,8 +126,29 @@ class Calculator {
         calculatorDelegate.updateDisplay(expression)
     }
     
-    func resetExpression(){
-        expression = "0"
+    // clear last element or all alement depend of selection:
+    // C clear last
+    // AC clear all
+    func resetExpression(_ selection: String){
+        if selection == "C" {
+            
+            guard let lastElement = elements.last else {return}
+            
+            var start: String.Index
+            if operatorAvailable.contains(lastElement) {
+                start = expression.index(expression.endIndex, offsetBy: -3)
+            } else {
+                start = expression.index(expression.endIndex, offsetBy: -(lastElement.count))
+            }
+            
+            let stop = expression.index(expression.endIndex, offsetBy: -1)
+            
+            expression.removeSubrange(start...stop)
+            
+        } else {
+            expression = "0"
+        }
+        calculatorDelegate.updateDisplay(expression)
     }
 
     //calcule with elements of expression
@@ -160,6 +181,7 @@ class Calculator {
             default: fatalError("Unknown operator !")
             }
             
+            // round result with 3 after point
             result = round(result * 1000) / 1000.0
             
             // check if number not finish with .0 or remove it
@@ -181,10 +203,18 @@ class Calculator {
     
     func pointHasBeenTapped() {
         if let lastElements = elements.last {
-            guard lastElements.contains(".") == false else
-            {calculatorDelegate.showAlert(title: "Virgule",
-                                          description: "Vous ne pouvez mettre qu'une virgule");
-            return
+            // check if last number have already a point
+            guard !lastElements.contains(".") else
+                {calculatorDelegate.showAlert(title: "Virgule",
+                                              description: "Vous ne pouvez mettre qu'une virgule");
+                    return
+                }
+            
+            // last element is not a operator
+            guard !operatorAvailable.contains(lastElements) else {
+                calculatorDelegate.showAlert(title: "Erreur",
+                                              description: "Entrez une expression correcte !");
+                    return
             }
         }
         expression.append(".")

@@ -23,7 +23,7 @@ class CalculatorTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        calculate.resetExpression()
+        calculate.resetExpression("AC")
     }
     
     //test for AddNumberTap
@@ -36,7 +36,7 @@ class CalculatorTests: XCTestCase {
     }
     
     func testExpressionIsZero_WhenTapFive_ResultIsFive() {
-        calculate.resetExpression()
+        calculate.resetExpression("AC")
         
         calculate.numberHasBeenTapped("5")
 
@@ -228,6 +228,7 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "4 / 3 = 1.333")
     }
     
+    // test for point
     func testExpressionIsElevenPointTwoPlusOnePointFive_WhenTapEgal_ExpressionIsTwelvePointSeven() {
         calculate.numberHasBeenTapped("1")
         calculate.numberHasBeenTapped("1")
@@ -254,6 +255,45 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "11.2")
         XCTAssertEqual(alerteDesciption, "Vous ne pouvez mettre qu'une virgule")
     }
+    
+    func testExpressionFinishWithOperator_WhenTapPoint_ExpressionNotChangeAndShowAlerte(){
+        calculate.numberHasBeenTapped("1")
+        calculate.operatorHasBeenTapped("+")
+        calculate.pointHasBeenTapped()
+        
+        XCTAssertEqual(display, "1 + ")
+        XCTAssertEqual(alerteDesciption, "Entrez une expression correcte !")
+    }
+    
+    // test for reset AC or C
+    func testExpressionIsfivePlusFive_WhenResetCTapped_ExpressionIsFivePlus(){
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("5")
+        
+        calculate.resetExpression("C")
+        
+        XCTAssertEqual(display, "5 + ")
+    }
+    
+    func testExpressionIsfivePlus_WhenResetCTapped_ExpressionIsFive(){
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        
+        calculate.resetExpression("C")
+        
+        XCTAssertEqual(display, "5")
+    }
+    
+    func testExpressionIsfivePlus_WhenResetACTapped_ExpressionIsFive(){
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        
+        calculate.resetExpression("AC")
+        
+        XCTAssertEqual(display, "0")
+    }
+    
 }
 
 extension CalculatorTests: CalculatorDelegate {
