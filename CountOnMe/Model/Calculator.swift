@@ -29,7 +29,7 @@ class Calculator {
     }
 
     // delaration of available opérator
-    private let operatorAvailable: Set = ["+", "-", "*", "/"]
+    private let operatorAvailable: Set = ["+", "-", "×", "÷"]
 
     // return true if expression have alreay result
     private var expressionHaveResult: Bool {
@@ -43,7 +43,7 @@ class Calculator {
 
     // return true if last element is divide operator
     private var lastElementIsDivideOperator: Bool {
-        return elements.last == "/"
+        return elements.last == "÷"
     }
 
     func numberHasBeenTapped(_ selection: String) {
@@ -163,7 +163,7 @@ class Calculator {
         while operationsToReduce.count > 1 {
         
         // ientifie primary operator
-            if let primaryindex = operationsToReduce.firstIndex(where: {$0 == "*" || $0 == "/" }) {
+            if let primaryindex = operationsToReduce.firstIndex(where: {$0 == "×" || $0 == "÷" }) {
                 index = primaryindex
             } else {
                 index = 1
@@ -176,8 +176,8 @@ class Calculator {
             switch operand {
             case "+": result = left + right
             case "-": result = left - right
-            case "*": result = left * right
-            case "/": result = left / right
+            case "×": result = left * right
+            case "÷": result = left / right
             default: fatalError("Unknown operator !")
             }
             

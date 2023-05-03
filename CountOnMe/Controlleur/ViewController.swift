@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
-
+    @IBOutlet weak var acButton: UIButton!
+    
     private var calculate: Calculator!
 
     // View Life cycles
@@ -39,6 +40,23 @@ class ViewController: UIViewController {
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calculate.egalHasBeenTapped()
     }
+    
+    @IBAction func tappedACButton(_ sender: UIButton) {
+        guard let clearText = sender.title(for: .normal) else {
+            return
+        }
+        calculate.clearExpression(clearText)
+    }
+    
+    @IBAction func tappedChangeSign(_ sender: UIButton) {
+        calculate.changeSignTapped()
+    }
+    
+    @IBAction func tappedPointButton(_ sender: UIButton) {
+        calculate.pointHasBeenTapped()
+    }
+    
+    
 }
 
 extension ViewController : CalculatorDelegate {
