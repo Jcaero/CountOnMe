@@ -31,17 +31,6 @@ class Calculator {
     // delaration of available opérator
     private let operatorAvailable: Set = ["+", "-", "*", "/"]
 
-    // check if expression have enough element to bild a calcule
-    // @return true if have neough
-    private var expressionHaveEnoughElement: Bool {
-        return elements.count >= 3
-    }
-
-    // @return true if last element is not a operator
-    private var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-"
-    }
-
     // return true if expression have alreay result
     private var expressionHaveResult: Bool {
         return elements.firstIndex(of: "=") != nil
@@ -51,12 +40,7 @@ class Calculator {
     private var lastElementIsZero: Bool {
         return elements.last == "0"
     }
-    
-    // return true if element have priary operator inside
-    private var elementsHavePrimaryOperator: Bool {
-        return elements.contains("*")
-    }
-    
+
     // return true if last element is divide operator
     private var lastElementIsDivideOperator: Bool {
         return elements.last == "/"
@@ -83,6 +67,11 @@ class Calculator {
         expression += selection
         calculatorDelegate.updateDisplay(expression)
     }
+    
+    // @return true if last element is not a operator
+    private var canAddOperator: Bool {
+        return elements.last != "+" && elements.last != "-"
+    }
 
     func operatorHasBeenTapped(_ selection: String){
         // if expression have result, show alerte
@@ -104,6 +93,12 @@ class Calculator {
         expression.append(operatorToAdd)
         
         calculatorDelegate.updateDisplay(expression)
+    }
+
+    // check if expression have enough element to bild a calcule
+    // @return true if have neough
+    private var expressionHaveEnoughElement: Bool {
+        return elements.count >= 3
     }
 
     func egalHasBeenTapped() {
@@ -137,14 +132,16 @@ class Calculator {
             // init range for remove String
             var start: String.Index
             if operatorAvailable.contains(lastElement) {
+                //remove 3 lest element
                 start = expression.index(expression.endIndex, offsetBy: -3)
             } else {
+                // remove number
                 start = expression.index(expression.endIndex, offsetBy: -(lastElement.count))
             }
             
             let stop = expression.index(expression.endIndex, offsetBy: -1)
             
-            // remove last element
+            // remove elements
             expression.removeSubrange(start...stop)
             
         } else {
@@ -218,13 +215,19 @@ class Calculator {
     
     // change sign of last number
     func changeSignTapped(){
+        // expression have element
         guard let lastElement = elements.last else {return}
+        // last element is not operator
         guard !operatorAvailable.contains(lastElement) else {return}
+        // last element is not Zero
         guard lastElement != "0" else {return}
+        // last element can be transform in Double
         guard var lastNumber = Double(lastElement) else {return}
         
+        // change symbole
         lastNumber = lastNumber * -1
         
+        // replace with new number
         clearExpression("C")
         expression.append(convertInString(lastNumber))
         
