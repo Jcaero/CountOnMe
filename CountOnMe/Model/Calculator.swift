@@ -11,6 +11,7 @@ import Foundation
 protocol CalculatorDelegate {
     func showAlert(title: String, description: String)
     func updateDisplay(_ expression: String)
+    func updateClearButton(_ button: String)
 }
 
 class Calculator {
@@ -66,6 +67,7 @@ class Calculator {
         // add number to expression and update display
         expression += selection
         calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate.updateClearButton("C")
     }
     
     // @return true if last element is not a operator
@@ -119,6 +121,7 @@ class Calculator {
 
         calcul()
         calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate.updateClearButton("AC")
     }
     
     // clear last element or all alement depend of selection:
@@ -128,6 +131,8 @@ class Calculator {
         if selection == "C" {
             // check if one elements existe
             guard let lastElement = elements.last else {return}
+            guard elements.count > 1 else {clearExpression("AC"); return}
+            
             
             // init range for remove String
             var start: String.Index
@@ -143,6 +148,7 @@ class Calculator {
             
             // remove elements
             expression.removeSubrange(start...stop)
+            calculatorDelegate.updateClearButton("AC")
             
         } else {
             // AC selection : clear expression

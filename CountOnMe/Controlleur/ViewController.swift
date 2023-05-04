@@ -60,6 +60,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController : CalculatorDelegate {
+    func updateClearButton(_ button: String) {
+        acButton.setTitle(button, for: .normal)
+    }
+    
 
     func showAlert(title: String, description: String) {
         let alertVC = UIAlertController(title: title, message: description, preferredStyle: .alert)
