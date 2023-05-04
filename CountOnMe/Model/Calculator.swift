@@ -233,8 +233,14 @@ class Calculator {
         // change symbole
         lastNumber = lastNumber * -1
         
+        // clear last element
+        if elements.count == 1 {
+            expression = ""
+        } else {
+            clearExpression("C")
+        }
+        
         // replace with new number
-        clearExpression("C")
         expression.append(convertInString(lastNumber))
         
         calculatorDelegate.updateDisplay(expression)

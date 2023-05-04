@@ -16,6 +16,7 @@ class CalculatorTests: XCTestCase {
     private var display: String?
     private var alerteTitle: String?
     private var alerteDesciption: String?
+    private var acButton: String?
     
     override func setUp() {
         super.setUp()
@@ -143,7 +144,7 @@ class CalculatorTests: XCTestCase {
     func testExpressionIsTwoPlusTen_WhenTapEgal_ExpressionTwelve() {
         calculate.numberHasBeenTapped("2")
         calculate.operatorHasBeenTapped("+")
-        calculate.numberHasBeenTapped("1")
+        calculate.numberHasBeenTapped("10")
         calculate.numberHasBeenTapped("0")
         
         calculate.egalHasBeenTapped()
@@ -165,67 +166,67 @@ class CalculatorTests: XCTestCase {
     // test for *
     func testExpressionIsTwoMutiplieTen_WhenTapEgal_ExpressionTwenty() {
         calculate.numberHasBeenTapped("2")
-        calculate.operatorHasBeenTapped("*")
+        calculate.operatorHasBeenTapped("×")
         calculate.numberHasBeenTapped("1")
         calculate.numberHasBeenTapped("0")
         
         calculate.egalHasBeenTapped()
         
-        XCTAssertEqual(display, "2 * 10 = 20")
+        XCTAssertEqual(display, "2 × 10 = 20")
     }
     
     func testExpressionIsTwoPlusFiveMultiplieFive_WhenTapEgal_ExpressionTwentySeven() {
         calculate.numberHasBeenTapped("2")
         calculate.operatorHasBeenTapped("+")
         calculate.numberHasBeenTapped("5")
-        calculate.operatorHasBeenTapped("*")
+        calculate.operatorHasBeenTapped("×")
         calculate.numberHasBeenTapped("5")
         
         calculate.egalHasBeenTapped()
         
-        XCTAssertEqual(display, "2 + 5 * 5 = 27")
+        XCTAssertEqual(display, "2 + 5 × 5 = 27")
     }
     
     // test for Divide
     func testExpressionIsTenDivideTwo_WhenTapEgal_ExpressionFive() {
         calculate.numberHasBeenTapped("1")
         calculate.numberHasBeenTapped("0")
-        calculate.operatorHasBeenTapped("/")
+        calculate.operatorHasBeenTapped("÷")
         calculate.numberHasBeenTapped("2")
 
         calculate.egalHasBeenTapped()
         
-        XCTAssertEqual(display, "10 / 2 = 5")
+        XCTAssertEqual(display, "10 ÷ 2 = 5")
     }
     
     func testExpressionIsOneDivide_WhenTapZero_ExpressionNotChangeAndShowAlerte() {
         calculate.numberHasBeenTapped("1")
-        calculate.operatorHasBeenTapped("/")
+        calculate.operatorHasBeenTapped("÷")
         
         calculate.numberHasBeenTapped("0")
 
-        XCTAssertEqual(display, "1 / ")
+        XCTAssertEqual(display, "1 ÷ ")
         XCTAssertEqual(alerteDesciption, "Vous ne pouvez pas diviser par 0")
     }
     
     func testExpressionIsFiveDivideTwo_WhenTapEgal_ExpressionResultIsTwoPointFive() {
         calculate.numberHasBeenTapped("5")
-        calculate.operatorHasBeenTapped("/")
+        calculate.operatorHasBeenTapped("÷")
         calculate.numberHasBeenTapped("2")
         
         calculate.egalHasBeenTapped()
 
-        XCTAssertEqual(display, "5 / 2 = 2.5")
+        XCTAssertEqual(display, "5 ÷ 2 = 2.5")
     }
     
     func testExpressionIsFourDivideByThree_WhenTapEgal_ExpressionIsOnePointThree() {
         calculate.numberHasBeenTapped("4")
-        calculate.operatorHasBeenTapped("/")
+        calculate.operatorHasBeenTapped("÷")
         calculate.numberHasBeenTapped("3")
         
         calculate.egalHasBeenTapped()
 
-        XCTAssertEqual(display, "4 / 3 = 1.333")
+        XCTAssertEqual(display, "4 ÷ 3 = 1.333")
     }
     
     // test for point
@@ -295,7 +296,8 @@ class CalculatorTests: XCTestCase {
     }
         
     func testExpressionIsFiveZero_WhenChangeSigneTap_ExpressionIsLessFive() {
-        calculate.numberHasBeenTapped("50")
+        calculate.numberHasBeenTapped("5")
+        calculate.numberHasBeenTapped("0")
         
         calculate.changeSignTapped()
         
@@ -341,6 +343,11 @@ class CalculatorTests: XCTestCase {
 }
 
 extension CalculatorTests: CalculatorDelegate {
+    
+    func updateClearButton(_ button: String) {
+        acButton = button
+    }
+    
     func showAlert(title: String, description: String) {
         alerteTitle = title
         alerteDesciption = description
