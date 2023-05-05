@@ -8,25 +8,23 @@
 
 import UIKit
 
-class cornerRoundedButton: UIButton {
-    
+class CornerRoundedButton: UIButton {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
+
     private func setup() {
-        if self.frame.height > self.frame.width{
+        if self.frame.height > self.frame.width {
             self.layer.cornerRadius = self.frame.width * 0.1
-        }else {
+        } else {
             self.layer.cornerRadius = self.frame.height * 0.1
         }
     }
-        
-    
 }
