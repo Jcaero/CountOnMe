@@ -188,7 +188,6 @@ class Calculator {
             default: fatalError("Unknown operator !")
             }
 
-            // round result with 3 after point
             result = round(result * 1000) / 1000.0
 
             // put answer in expression
@@ -218,6 +217,7 @@ class Calculator {
             return
         }
         expression.append(".")
+        calculatorDelegate.updateDisplay(expression)
     }
 
     // change sign of last number
