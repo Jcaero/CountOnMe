@@ -188,8 +188,6 @@ class Calculator {
             default: fatalError("Unknown operator !")
             }
 
-            result = round(result * 1000) / 1000.0
-
             // put answer in expression
             operationsToReduce.insert(convertInString(result), at: index-1)
 
@@ -249,11 +247,20 @@ class Calculator {
 
     // convert Double in String
     private func convertInString(_ double: Double) -> String {
-        var stringDouble = String(double)
+        var stringDouble: String
+        
+        if double.description.count > 10 {
+            stringDouble = String(format: "%.2e", double)
+        } else {
+            stringDouble = String(format: "%.2f", double)
+        }
 
-        // remove last if finish with .0
-        if stringDouble.last == "0" {
+        // remove O after .
+        while stringDouble.last == "0"{
             stringDouble.removeLast()
+        }
+        
+        if stringDouble.last == "."{
             stringDouble.removeLast()
         }
         return stringDouble
