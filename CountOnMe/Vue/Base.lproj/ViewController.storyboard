@@ -26,7 +26,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="g71-2a-ikg">
                                         <rect key="frame" x="0.0" y="0.0" width="91" height="394"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nA-pn-VLa" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nA-pn-VLa" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
@@ -37,7 +37,7 @@
                                                     <action selector="tappedACButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="XF8-r6-hvF"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raa-av-x4n" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raa-av-x4n" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="101" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -48,7 +48,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="JlD-3U-Gxp"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMJ-tH-k5u" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMJ-tH-k5u" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="202" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -59,7 +59,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="EWF-85-KDN"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W04-n1-Wen" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W04-n1-Wen" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="303" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -75,7 +75,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5dL-8D-IAO">
                                         <rect key="frame" x="101" y="0.0" width="91" height="394"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDb-K1-rCG" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YDb-K1-rCG" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
@@ -86,7 +86,7 @@
                                                     <action selector="tappedChangeSign:" destination="eqK-jh-KKu" eventType="touchUpInside" id="khQ-yz-PMv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jd7-ld-hSU" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jd7-ld-hSU" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="101" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -97,7 +97,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="sxB-i9-daL"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lad-SR-mqj" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lad-SR-mqj" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="202" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -108,7 +108,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="Txg-Kb-BLo"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPx-3X-zTa" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPx-3X-zTa" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="303" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -124,7 +124,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gUJ-Pj-EbY">
                                         <rect key="frame" x="202" y="0.0" width="91" height="394"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j29-cR-8ic" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j29-cR-8ic" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -138,7 +138,7 @@
                                                     <action selector="tappedOpperatorButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="PdT-Um-5cg"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDN-zf-T0y" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDN-zf-T0y" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="101" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -149,7 +149,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="wqc-BB-cfA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S66-ub-JAX" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S66-ub-JAX" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="202" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -160,7 +160,7 @@
                                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="LnE-WY-WXv"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkr-13-i1X" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hkr-13-i1X" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="303" width="91" height="91"/>
                                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -178,7 +178,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vX6-60-dqe">
                                 <rect key="frame" x="313" y="357" width="91" height="293"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJ7-N6-X81" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJ7-N6-X81" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="91" height="91"/>
                                         <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -192,7 +192,7 @@
                                             <action selector="tappedOpperatorButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="srS-KL-6Ym"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zr-HC-0N9" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zr-HC-0N9" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="101" width="91" height="91"/>
                                         <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
@@ -203,7 +203,7 @@
                                             <action selector="tappedOpperatorButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="SLU-PO-G8I"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQU-P5-55X" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQU-P5-55X" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="202" width="91" height="91"/>
                                         <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="42"/>
@@ -216,7 +216,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YD6-ul-r3f" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YD6-ul-r3f" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                 <rect key="frame" x="10" y="761" width="192" height="91"/>
                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
@@ -227,14 +227,14 @@
                                     <action selector="tappedNumberButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="8QE-Kp-ela"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="1+1=2" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-yn-nBB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="1+1=2" textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-yn-nBB">
                                 <rect key="frame" x="10" y="54" width="394" height="293"/>
                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMj-Of-bCU" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMj-Of-bCU" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                 <rect key="frame" x="313" y="660" width="91" height="192"/>
                                 <color key="backgroundColor" red="0.80696034429999997" green="0.69253253940000004" blue="0.498228848" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
@@ -245,7 +245,7 @@
                                     <action selector="tappedEqualButton:" destination="eqK-jh-KKu" eventType="touchUpInside" id="JgS-cl-T2a"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDG-6Y-rMI" customClass="cornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDG-6Y-rMI" customClass="CornerRoundedButton" customModule="CountOnMe" customModuleProvider="target">
                                 <rect key="frame" x="212" y="761" width="91" height="91"/>
                                 <color key="backgroundColor" red="0.32593223449999997" green="0.31024387479999999" blue="0.28090271350000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
