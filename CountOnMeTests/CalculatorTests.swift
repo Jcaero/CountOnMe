@@ -226,7 +226,7 @@ class CalculatorTests: XCTestCase {
 
         calculate.egalHasBeenTapped()
 
-        XCTAssertEqual(display, "4 ÷ 3 = 1.33")
+        XCTAssertEqual(display, "4 ÷ 3 = 1.33333")
     }
 
     // test for point

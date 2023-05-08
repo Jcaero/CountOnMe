@@ -15,6 +15,9 @@ protocol CalculatorDelegate {
 }
 
 class Calculator {
+    // Configuration
+    let numberMaxLenght = 8
+    let expressionMaxLenght = 24
 
     // Delegate
     private let calculatorDelegate: CalculatorDelegate
@@ -248,13 +251,21 @@ class Calculator {
     // convert Double in String
     private func convertInString(_ double: Double) -> String {
         var stringDouble: String
-        
-        if double.description.count > 10 {
-            stringDouble = String(format: "%.2e", double)
-        } else {
-            stringDouble = String(format: "%.2f", double)
-        }
+        let format: String
 
+        // expression start with 0.
+        guard double.description.first != "0" else { return String(format: "%.8f", double) }
+        
+        // expression have more than ten number before point
+        guard Int(double).description.count < 10 else { return String(format: "%.2e", double)}
+        
+        if Int(double).description.count < 6 {
+            format = "%.5f"
+        } else {
+            format = "%.2f"
+        }
+        
+        stringDouble = String(format: format, double)
         // remove O after .
         while stringDouble.last == "0"{
             stringDouble.removeLast()
