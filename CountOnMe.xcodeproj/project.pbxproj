@@ -13,7 +13,7 @@
 		1FA43BDA224E569A00F565CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FA43BD9224E569A00F565CB /* Assets.xcassets */; };
 		1FA43BDD224E569A00F565CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA43BDB224E569A00F565CB /* LaunchScreen.storyboard */; };
 		1FA43BF3224E569A00F565CB /* SimpleCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA43BF2224E569A00F565CB /* SimpleCalcUITests.swift */; };
-		47121E942A0444FF0018F735 /* cornerRoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47121E932A0444FF0018F735 /* cornerRoundedButton.swift */; };
+		47121E942A0444FF0018F735 /* CornerRoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47121E932A0444FF0018F735 /* CornerRoundedButton.swift */; };
 		471A3EC029FE602D005D94F9 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A3EBF29FE602D005D94F9 /* Calculator.swift */; };
 		47C9D57C29FEFCF000D6B016 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9D57B29FEFCF000D6B016 /* CalculatorTests.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +48,7 @@
 		1FA43BEE224E569A00F565CB /* CountOnMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA43BF2224E569A00F565CB /* SimpleCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCalcUITests.swift; sourceTree = "<group>"; };
 		1FA43BF4224E569A00F565CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = CountOnMeUITests/Info.plist; sourceTree = SOURCE_ROOT; };
-		47121E932A0444FF0018F735 /* cornerRoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cornerRoundedButton.swift; sourceTree = "<group>"; };
+		47121E932A0444FF0018F735 /* CornerRoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRoundedButton.swift; sourceTree = "<group>"; };
 		471A3EBF29FE602D005D94F9 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		47C9D57B29FEFCF000D6B016 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				1FA43BD6224E569900F565CB /* ViewController.storyboard */,
-				47121E932A0444FF0018F735 /* cornerRoundedButton.swift */,
+				47121E932A0444FF0018F735 /* CornerRoundedButton.swift */,
 			);
 			path = Vue;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 			files = (
 				1FA43BD5224E569900F565CB /* ViewController.swift in Sources */,
 				1FA43BD3224E569900F565CB /* AppDelegate.swift in Sources */,
-				47121E942A0444FF0018F735 /* cornerRoundedButton.swift in Sources */,
+				47121E942A0444FF0018F735 /* CornerRoundedButton.swift in Sources */,
 				471A3EC029FE602D005D94F9 /* Calculator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

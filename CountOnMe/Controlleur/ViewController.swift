@@ -9,10 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     @IBOutlet weak var acButton: UIButton!
-
+    @IBOutlet weak var textLbl: UILabel!
+    
     private var calculate: Calculator!
 
     // View Life cycles
@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         updateDisplay("0")
         calculate = Calculator(delegate: self)
+        setupLabel()
     }
 
     // View actions
@@ -55,6 +56,19 @@ class ViewController: UIViewController {
     @IBAction func tappedPointButton(_ sender: UIButton) {
         calculate.pointHasBeenTapped()
     }
+    
+    // change label propiety when display is to small
+    private func setupLabel() {
+        // height and width of the device screen
+        let height = UIScreen.main.bounds.height
+        let width = UIScreen.main.bounds.width
+        
+        // change minimum front size if screen is under 5.5"
+        if (height < 700 && width < 400) {
+            textLbl.adjustsFontSizeToFitWidth = true
+            textLbl.minimumScaleFactor = 0.5
+        }
+    }
 }
 
 extension ViewController: CalculatorDelegate {
@@ -69,6 +83,6 @@ extension ViewController: CalculatorDelegate {
     }
 
     func updateDisplay(_ expression: String) {
-        textView.text = expression
+        textLbl.text = expression
     }
 }
