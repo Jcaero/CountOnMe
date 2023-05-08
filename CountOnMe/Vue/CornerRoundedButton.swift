@@ -1,8 +1,8 @@
 //
-//  cornerRoundedButton.swift
+//  CornerRoundedButton.swift
 //  CountOnMe
 //
-//  Created by pierrick viret on 04/05/2023.
+//  Created by pierrick viret on 08/05/2023.
 //  Copyright © 2023 Vincent Saluzzo. All rights reserved.
 //
 
