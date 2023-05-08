@@ -16,14 +16,14 @@ protocol CalculatorDelegate {
 
 class Calculator {
     // Configuration
-    let numberMaxLenght = 8
+    let numberMaxLenght = 10
     let expressionMaxLenght = 24
 
     // Delegate
     private let calculatorDelegate: CalculatorDelegate
     init(delegate: CalculatorDelegate) {
         self.calculatorDelegate = delegate
-        expression = ""
+        expression = "0"
     }
 
     // Expression
@@ -58,9 +58,11 @@ class Calculator {
                                          description: "Vous ne pouvez pas diviser par 0");
             return
         }
-
+        
         // clear expression if already have result
-        if expressionHaveResult { expression = "" }
+        if expressionHaveResult { expression = "0" }
+        
+        guard elements.last!.count < numberMaxLenght else { return }
 
         // delete zero if it zero before number
         if lastElementIsZero {
@@ -252,6 +254,8 @@ class Calculator {
     private func convertInString(_ double: Double) -> String {
         var stringDouble: String
         let format: String
+        
+        guard double != 0 else {return "0"}
 
         // expression start with 0.
         guard double.description.first != "0" else { return String(format: "%.8f", double) }
