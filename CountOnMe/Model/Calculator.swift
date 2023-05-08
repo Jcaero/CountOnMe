@@ -59,6 +59,12 @@ class Calculator {
             return
         }
         
+        // check if expression have enought place for a operator and a number after
+        guard expression.count < expressionMaxLenght else {
+            calculatorDelegate.showAlert(title: "Max", description: "Votre calcul est trop long !")
+            return
+        }
+        
         // clear expression if already have result
         if expressionHaveResult { expression = "0" }
         
@@ -92,6 +98,12 @@ class Calculator {
         guard canAddOperator else {
             calculatorDelegate.showAlert(title: "Zéro!",
                                          description: "Entrez une expression correcte !");
+            return
+        }
+        
+        // check if expression have enought place for a operator and a number after
+        guard expression.count <= (expressionMaxLenght - 4 ) else {
+            calculatorDelegate.showAlert(title: "Max", description: "Votre calcul est trop long !")
             return
         }
 
