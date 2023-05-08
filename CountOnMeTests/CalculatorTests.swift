@@ -340,6 +340,37 @@ class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(display, "5 + -2")
     }
+    
+    // test maximum number length
+    func testExpressionHaveTenNumbers_WhenTapNumber_ExpressionNotChange() {
+        calculate.numberHasBeenTapped("5555555555")
+
+        calculate.numberHasBeenTapped("5")
+
+        XCTAssertEqual(display, "5555555555")
+    }
+    
+    // test convert in String
+    func testExpressionIsFiveLessFive_WhenTapEgal_ResultIsZero() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("-")
+        calculate.numberHasBeenTapped("5")
+
+        calculate.egalHasBeenTapped()
+
+        XCTAssertEqual(display, "5 - 5 = 0")
+    }
+    
+    func testResultHaveElevenNumber_WhenTapEgal_ResultIsScientificMode(){
+        calculate.numberHasBeenTapped("555555555")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("555555")
+
+        calculate.egalHasBeenTapped()
+
+        XCTAssertEqual(display, "555555555 × 555555 = 3.09e+14")
+        
+    }
 }
 
 extension CalculatorTests: CalculatorDelegate {
