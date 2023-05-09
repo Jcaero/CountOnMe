@@ -114,7 +114,7 @@ class Calculator {
         calculatorDelegate.updateDisplay(expression)
     }
 
-    // check if expression have enough element to bild a calcule
+    // check if expression have enough element to build a calcule
     // @return true if have neough
     private var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
@@ -153,7 +153,11 @@ class Calculator {
 
         // check if one elements existe
         guard let lastElement = elements.last else {return}
-        guard elements.count > 1 else {clearExpression("AC"); return}
+        guard elements.count > 1 else {
+            clearExpression("AC");
+            calculatorDelegate.updateClearButton("AC");
+            return
+        }
 
         // init range for remove String
         var start: String.Index

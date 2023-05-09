@@ -42,6 +42,7 @@ class CalculatorTests: XCTestCase {
         calculate.numberHasBeenTapped("5")
 
         XCTAssertEqual(display, "5")
+        XCTAssertEqual(acButton, "C")
     }
 
     func testExpressionFinishWithZero_WhenTapFive_ZeroIsRemplaceByFive() {
@@ -83,7 +84,7 @@ class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(display, "2 + ")
     }
-
+    
     func testExpressionHaveResult_WhenTapPlus_GiveAlerteFinAndExpressionNotChange() {
         calculate.numberHasBeenTapped("1")
         calculate.operatorHasBeenTapped("+")
@@ -219,14 +220,14 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "5 ÷ 2 = 2.5")
     }
 
-    func testExpressionIsFourDivideByThree_WhenTapEgal_ExpressionIsOnePointThree() {
-        calculate.numberHasBeenTapped("4")
+    func testExpressionIsOneDivideByThree_WhenTapEgal_ExpressionIsOnePointThree() {
+        calculate.numberHasBeenTapped("1")
         calculate.operatorHasBeenTapped("÷")
         calculate.numberHasBeenTapped("3")
 
         calculate.egalHasBeenTapped()
 
-        XCTAssertEqual(display, "4 ÷ 3 = 1.33333")
+        XCTAssertEqual(display, "1 ÷ 3 = 0.33333333")
     }
 
     // test for point
@@ -361,7 +362,7 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "5 - 5 = 0")
     }
     
-    func testResultHaveElevenNumber_WhenTapEgal_ResultIsScientificMode(){
+    func testResultHaveElevenNumber_WhenTapEgal_ResultIsScientificMode() {
         calculate.numberHasBeenTapped("555555555")
         calculate.operatorHasBeenTapped("×")
         calculate.numberHasBeenTapped("555555")
@@ -369,7 +370,61 @@ class CalculatorTests: XCTestCase {
         calculate.egalHasBeenTapped()
 
         XCTAssertEqual(display, "555555555 × 555555 = 3.09e+14")
+    }
+    
+    func testExpressionHaveResultSupTen_WhenTapEgal_ExpressionIsInScientificMode() {
+        calculate.numberHasBeenTapped("222222222")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("8888888888")
+
+        calculate.egalHasBeenTapped()
         
+        XCTAssertEqual(display, "222222222 + 8888888888 = 9.11e+09")
+    }
+    
+    func testExpressionHaveResultUnderTen_WhenTapEgal_ExpressionHave2Digit() {
+        calculate.numberHasBeenTapped("22222222")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("8")
+
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "22222222 + 8 = 22222230")
+    }
+
+    // test expression is to long
+    func testExpressionHaveTwentyCharacter_WhenOpperatorHasBeenTapped_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("5555555555")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("55555555")
+        
+        calculate.operatorHasBeenTapped("×")
+        
+        XCTAssertEqual(display, "5555555555 × 55555555")
+        XCTAssertEqual(alerteDesciption, "Votre calcul est trop long !")
+    }
+    
+    func testExpressionHaveTwentyFourCharacter_WhenNumberHasBeenTapped_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("5555555555")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("555555")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("55")
+        
+        calculate.numberHasBeenTapped("5")
+        
+        XCTAssertEqual(display, "5555555555 × 555555 × 55")
+        XCTAssertEqual(alerteDesciption, "Votre calcul est trop long !")
+    }
+    
+    // test ac BUTTON
+    func testExpressionIsFive_WhenClearExpression_ExpressionIsZeroAndButtonIsAc() {
+    calculate.numberHasBeenTapped("5")
+    
+    calculate.clearExpression("C")
+    
+    XCTAssertEqual(display, "0")
+    XCTAssertEqual(acButton, "AC")
     }
 }
 
