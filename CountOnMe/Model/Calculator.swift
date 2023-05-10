@@ -61,14 +61,17 @@ class Calculator {
         
         // check if expression have enought place for a operator and a number after
         guard expression.count < expressionMaxLenght else {
-            calculatorDelegate.showAlert(title: "Max", description: "Votre calcul est trop long !")
+            calculatorDelegate.showAlert(title: "Expression Max", description: "Votre calcul est trop long !")
             return
         }
         
         // clear expression if already have result
         if expressionHaveResult { expression = "0" }
         
-        guard elements.last!.count < numberMaxLenght else { return }
+        guard elements.last!.count < numberMaxLenght else {
+            calculatorDelegate.showAlert(title: "Erreur", description: "vous ne pouvez pas dépaser 10 chiffres")
+            return
+        }
 
         // delete zero if it zero before number
         if lastElementIsZero {
@@ -87,16 +90,22 @@ class Calculator {
     }
 
     func operatorHasBeenTapped(_ selection: String) {
+        // check if valide operator
+        guard operatorAvailable.contains(selection) else {
+            calculatorDelegate.showAlert(title: "Erreur", description: "opérateur non reconnu par la calculatrice");
+            return
+        }
+        
         // if expression have result, show alerte
         guard !elements.contains("=") else {
-            calculatorDelegate.showAlert(title: "Zéro!",
+            calculatorDelegate.showAlert(title: "Erreur",
                                          description: "Démarrez un nouveau calcul !");
             return
         }
 
         // if last elements is a operator, show alerte
         guard canAddOperator else {
-            calculatorDelegate.showAlert(title: "Zéro!",
+            calculatorDelegate.showAlert(title: "Erreur!",
                                          description: "Entrez une expression correcte !");
             return
         }
@@ -146,13 +155,14 @@ class Calculator {
     // AC clear all
     func clearExpression(_ selection: String) {
         // check if selection is AC
-        guard selection == "C" else {expression = "0";
+        guard selection == "C" else {
+            expression = "0";
             calculatorDelegate.updateDisplay(expression);
             return
         }
 
         // check if one elements existe
-        guard let lastElement = elements.last else {return}
+        guard let lastElement = elements.last else { return }
         guard elements.count > 1 else {
             clearExpression("AC");
             calculatorDelegate.updateClearButton("AC");
@@ -173,10 +183,9 @@ class Calculator {
 
         // remove elements
         expression.removeSubrange(start...stop)
+        
         calculatorDelegate.updateClearButton("AC")
-
         calculatorDelegate.updateDisplay(expression)
-
     }
 
     // calcule with elements of expression
@@ -186,11 +195,10 @@ class Calculator {
         var operationsToReduce = elements
         var result: Double
         var index: Int
-
+        
         // calculate until expression have result
         while operationsToReduce.count > 1 {
-
-            // ientifie primary operator
+            // identifie primary operator
             if let primaryindex = operationsToReduce.firstIndex(where: {$0 == "×" || $0 == "÷" }) {
                 index = primaryindex
             } else {
@@ -206,7 +214,7 @@ class Calculator {
             case "-": result = left - right
             case "×": result = left * right
             case "÷": result = left / right
-            default: fatalError("Unknown operator !")
+            default: return
             }
 
             // put answer in expression
@@ -220,7 +228,7 @@ class Calculator {
 
     // put point for number with decimal
     func pointHasBeenTapped() {
-        guard let lastElements = elements.last else {return}
+        guard let lastElements = elements.last else { return }
 
         // check if last number have already a point
         guard !lastElements.contains(".") else {
@@ -229,12 +237,13 @@ class Calculator {
             return
         }
 
-        // last element is not a operator
+        // last element is a operator
         guard !operatorAvailable.contains(lastElements) else {
-            calculatorDelegate.showAlert(title: "Erreur",
-                                         description: "Entrez une expression correcte !");
+            expression.append("0.")
+            calculatorDelegate.updateDisplay(expression)
             return
         }
+        
         expression.append(".")
         calculatorDelegate.updateDisplay(expression)
     }

@@ -103,8 +103,8 @@
 			children = (
 				1FA43BD2224E569900F565CB /* AppDelegate.swift */,
 				471A3EBE29FE5F0A005D94F9 /* Model */,
-				471A3EBD29FE5F01005D94F9 /* Vue */,
-				471A3EBC29FE5EF3005D94F9 /* Controlleur */,
+				471A3EBD29FE5F01005D94F9 /* View */,
+				471A3EBC29FE5EF3005D94F9 /* Controller */,
 				471A3EBB29FE5EE5005D94F9 /* Ressources */,
 			);
 			path = CountOnMe;
@@ -138,21 +138,21 @@
 			path = Ressources;
 			sourceTree = "<group>";
 		};
-		471A3EBC29FE5EF3005D94F9 /* Controlleur */ = {
+		471A3EBC29FE5EF3005D94F9 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				1FA43BD4224E569900F565CB /* ViewController.swift */,
 			);
-			path = Controlleur;
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		471A3EBD29FE5F01005D94F9 /* Vue */ = {
+		471A3EBD29FE5F01005D94F9 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				1FA43BD6224E569900F565CB /* ViewController.storyboard */,
 				47C59C482A092DFC001BB896 /* CornerRoundedButton.swift */,
 			);
-			path = Vue;
+			path = View;
 			sourceTree = "<group>";
 		};
 		471A3EBE29FE5F0A005D94F9 /* Model */ = {

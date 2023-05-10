@@ -37,10 +37,8 @@ class CalculatorTests: XCTestCase {
     }
 
     func testExpressionIsZero_WhenTapFive_ResultIsFive() {
-        calculate.clearExpression("AC")
-
+        // Quand je démarre sans calcul j'ai AC, je tape un chiffre, j'ai C
         calculate.numberHasBeenTapped("5")
-
         XCTAssertEqual(display, "5")
         XCTAssertEqual(acButton, "C")
     }
@@ -105,6 +103,15 @@ class CalculatorTests: XCTestCase {
 
         XCTAssertEqual(display, "1 + ")
         XCTAssertEqual(alerteDesciption, "Entrez une expression correcte !")
+    }
+    
+    func testWhenTapOperatorUnknown_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("1")
+        
+        calculate.operatorHasBeenTapped("/")
+        
+        XCTAssertEqual(display, "1")
+        XCTAssertEqual(alerteDesciption, "opérateur non reconnu par la calculatrice")
     }
 
     // Test for égal
@@ -258,13 +265,12 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(alerteDesciption, "Vous ne pouvez mettre qu'une virgule")
     }
 
-    func testExpressionFinishWithOperator_WhenTapPoint_ExpressionNotChangeAndShowAlerte() {
+    func testExpressionFinishWithOperator_WhenTapPoint_AddZeroBeforePoint() {
         calculate.numberHasBeenTapped("1")
         calculate.operatorHasBeenTapped("+")
         calculate.pointHasBeenTapped()
 
-        XCTAssertEqual(display, "1 + ")
-        XCTAssertEqual(alerteDesciption, "Entrez une expression correcte !")
+        XCTAssertEqual(display, "1 + 0.")
     }
 
     // test for reset AC or C
@@ -349,6 +355,8 @@ class CalculatorTests: XCTestCase {
         calculate.numberHasBeenTapped("5")
 
         XCTAssertEqual(display, "5555555555")
+        XCTAssertEqual(alerteDesciption, "vous ne pouvez pas dépaser 10 chiffres")
+        
     }
     
     // test convert in String
