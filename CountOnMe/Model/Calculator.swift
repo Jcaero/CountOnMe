@@ -97,10 +97,10 @@ class Calculator {
         }
         
         // if expression have result, show alerte
-        guard !elements.contains("=") else {
-            calculatorDelegate.showAlert(title: "Erreur",
-                                         description: "Démarrez un nouveau calcul !");
-            return
+        if elements.contains("=") {
+            if let result = elements.last {
+                expression = result
+            }
         }
 
         // if last elements is a operator, show alerte

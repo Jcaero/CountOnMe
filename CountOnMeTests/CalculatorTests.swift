@@ -83,7 +83,7 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(display, "2 + ")
     }
     
-    func testExpressionHaveResult_WhenTapPlus_GiveAlerteFinAndExpressionNotChange() {
+    func testExpressionHaveResult_WhenTapPlus_ClearExpressionAndPutResultBeforeOperator() {
         calculate.numberHasBeenTapped("1")
         calculate.operatorHasBeenTapped("+")
         calculate.numberHasBeenTapped("3")
@@ -91,8 +91,7 @@ class CalculatorTests: XCTestCase {
 
         calculate.operatorHasBeenTapped("+")
 
-        XCTAssertEqual(display, "1 + 3 = 4")
-        XCTAssertEqual(alerteDesciption, "Démarrez un nouveau calcul !")
+        XCTAssertEqual(display, "4 + ")
     }
 
     func testLastElmentIsAnOperator_WhenTapLess_GiveAlerteOperatorAndExpressionNotChange() {
