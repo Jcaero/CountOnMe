@@ -99,7 +99,8 @@ class Calculator {
     func operatorHasBeenTapped(_ selection: String) {
         //check if it's a valide operator
         guard operatorAvailable.contains(selection) else {
-            calculatorDelegate.showAlert(title: "Erreur", description: "opérateur non reconnu par la calculatrice");
+            calculatorDelegate.showAlert(title: "Erreur",
+                                         description: "opérateur non reconnu par la calculatrice");
             return
         }
         
@@ -117,9 +118,10 @@ class Calculator {
             return
         }
         
-        // check if expression have enought place for an operator and a number after
+        // check if expression have enough place for an operator and a number after
         guard expression.count <= (expressionMaxLenght - 4 ) else {
-            calculatorDelegate.showAlert(title: "Max", description: "Votre calcul est trop long !")
+            calculatorDelegate.showAlert(title: "Max",
+                                         description: "Votre calcul est trop long !")
             return
         }
 
