@@ -15,9 +15,6 @@ protocol CalculatorDelegate {
 }
 
 class Calculator {
-    // Configuration
-    let numberMaxLenght = 10
-    let expressionMaxLenght = 24
 
     // Delegate
     private let calculatorDelegate: CalculatorDelegate
@@ -31,43 +28,49 @@ class Calculator {
     private var elements: [String] {
         return expression.split(separator: " ").map { "\($0)" }
     }
+    
+    // Configuration
+    let numberMaxLenght = 10
+    let expressionMaxLenght = 24
 
     // delaration of available opérator
     private let operatorAvailable: Set = ["+", "-", "×", "÷"]
 
-    // return true if expression have alreay result
     private var expressionHaveResult: Bool {
         return elements.firstIndex(of: "=") != nil
     }
 
-    // return true if last element is 0
     private var lastElementIsZero: Bool {
         return elements.last == "0"
     }
 
-    // return true if last element is divide operator
     private var lastElementIsDivideOperator: Bool {
         return elements.last == "÷"
     }
 
+    /**
+     * Use to add number in expression
+     *
+     *@param selection The selected number
+    */
     func numberHasBeenTapped(_ selection: String) {
 
-        // check if selection is Zero and last operator is divide
+        // check if selection is Zero and operator before is divide
         guard !(lastElementIsDivideOperator && selection == "0") else {
             calculatorDelegate.showAlert(title: "Erreur",
                                          description: "Vous ne pouvez pas diviser par 0");
             return
         }
         
-        // check if expression have enought place for a operator and a number after
+        // check if expression have enought place for number after
         guard expression.count < expressionMaxLenght else {
             calculatorDelegate.showAlert(title: "Expression Max", description: "Votre calcul est trop long !")
             return
         }
         
-        // clear expression if already have result
         if expressionHaveResult { expression = "0" }
         
+        // check the max size of number
         guard elements.last!.count < numberMaxLenght else {
             calculatorDelegate.showAlert(title: "Erreur", description: "vous ne pouvez pas dépaser 10 chiffres")
             return
@@ -84,19 +87,23 @@ class Calculator {
         calculatorDelegate.updateClearButton("C")
     }
 
-    // @return true if last element is not a operator
     private var canAddOperator: Bool {
-        return elements.last != "+" && elements.last != "-"
+        return !operatorAvailable.contains(elements.last ?? "")
     }
 
+    /**
+     * Use to add operator in expression
+     *
+     *@param selection The selected opérator
+    */
     func operatorHasBeenTapped(_ selection: String) {
-        // check if valide operator
+        //check if it's a valide operator
         guard operatorAvailable.contains(selection) else {
             calculatorDelegate.showAlert(title: "Erreur", description: "opérateur non reconnu par la calculatrice");
             return
         }
         
-        // if expression have result, show alerte
+        // if expression have result, clear expression and kepp the result
         if elements.contains("=") {
             if let result = elements.last {
                 expression = result
@@ -110,7 +117,7 @@ class Calculator {
             return
         }
         
-        // check if expression have enought place for a operator and a number after
+        // check if expression have enought place for an operator and a number after
         guard expression.count <= (expressionMaxLenght - 4 ) else {
             calculatorDelegate.showAlert(title: "Max", description: "Votre calcul est trop long !")
             return
@@ -124,11 +131,14 @@ class Calculator {
     }
 
     // check if expression have enough element to build a calcule
-    // @return true if have neough
     private var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
 
+    /**
+     * check expression and call calcul()
+     *
+    */
     func egalHasBeenTapped() {
         // expression have more than 3 elements and finish with number
         let valideExpression = expressionHaveEnoughElement && canAddOperator
@@ -150,9 +160,12 @@ class Calculator {
         calculatorDelegate.updateClearButton("AC")
     }
 
-    // clear last element or all alement depend of selection:
-    // C clear last
-    // AC clear all
+    /**
+     * Use clear expression : C clear
+     *                 AC Clear All
+     *
+     *@param selection The selected opérator
+    */
     func clearExpression(_ selection: String) {
         // check if selection is AC
         guard selection == "C" else {
@@ -161,41 +174,48 @@ class Calculator {
             return
         }
 
-        // check if one elements existe
         guard let lastElement = elements.last else { return }
+        
+        // if only one number, clear all expression
         guard elements.count > 1 else {
             clearExpression("AC");
             calculatorDelegate.updateClearButton("AC");
             return
         }
 
-        // init range for remove String
+ 
         var start: String.Index
+        
+        // if element is a operator, remove operator and space around
+        // else remove last number
+        // init range to remove
+        
         if operatorAvailable.contains(lastElement) {
-            // remove 3 lest element
             start = expression.index(expression.endIndex, offsetBy: -3)
         } else {
-            // remove number
             start = expression.index(expression.endIndex, offsetBy: -(lastElement.count))
         }
 
         let stop = expression.index(expression.endIndex, offsetBy: -1)
 
-        // remove elements
         expression.removeSubrange(start...stop)
         
         calculatorDelegate.updateClearButton("AC")
         calculatorDelegate.updateDisplay(expression)
     }
 
-    // calcule with elements of expression
-    // put result at the end of expression
+    /**
+     * Calculate expression
+     * respect basic mathématique rules with priority to multiply and divide
+     *
+     *put result at the end of expression
+    */
     private func calcul() {
-        // Create local copy of operations
+
         var operationsToReduce = elements
         var result: Double
         var index: Int
-        
+
         // calculate until expression have result
         while operationsToReduce.count > 1 {
             // identifie primary operator
@@ -217,16 +237,17 @@ class Calculator {
             default: return
             }
 
-            // put answer in expression
             operationsToReduce.insert(convertInString(result), at: index-1)
-
             // remove number and operator used from expression
             operationsToReduce.removeSubrange(index...index+2)
         }
+        // put result in expression
         expression += " = " + operationsToReduce[0]
     }
 
-    // put point for number with decimal
+    /**
+     * insert point in expression
+    */
     func pointHasBeenTapped() {
         guard let lastElements = elements.last else { return }
 
@@ -237,7 +258,7 @@ class Calculator {
             return
         }
 
-        // last element is a operator
+        // check if last element is a operator and put zero before point
         guard !operatorAvailable.contains(lastElements) else {
             expression.append("0.")
             calculatorDelegate.updateDisplay(expression)
@@ -248,16 +269,21 @@ class Calculator {
         calculatorDelegate.updateDisplay(expression)
     }
 
-    // change sign of last number
+    /**
+     * change signe of lat number
+    */
     func changeSignTapped() {
-        // expression have element
-        guard let lastElement = elements.last else {return}
+
+        guard let lastElement = elements.last else { return }
+
         // last element is not operator
-        guard !operatorAvailable.contains(lastElement) else {return}
+        guard !operatorAvailable.contains(lastElement) else { return }
+
         // last element is not Zero
-        guard lastElement != "0" else {return}
+        guard lastElement != "0" else { return }
+
         // last element can be transform in Double
-        guard var lastNumber = Double(lastElement) else {return}
+        guard var lastNumber = Double(lastElement) else { return}
 
         // change symbole
         lastNumber.negate()
@@ -275,19 +301,28 @@ class Calculator {
         calculatorDelegate.updateDisplay(expression)
     }
 
-    // convert Double in String
+    /**
+     * formate number tu have expression no more longer than 10
+     * after, convert in string
+     *
+     *@param double : number to convert
+     *
+     *@return Sting Number formatted and convert to String
+    */
     private func convertInString(_ double: Double) -> String {
         var stringDouble: String
         let format: String
         
         guard double != 0 else {return "0"}
 
-        // expression start with 0.
+        // expression is only decimal , show 8 number after point
         guard double.description.first != "0" else { return String(format: "%.8f", double) }
         
-        // expression have more than ten number before point
+        // expression have more than ten number before point, convert in scientifique
         guard Int(double).description.count < 10 else { return String(format: "%.2e", double)}
         
+        // keep 5 number after point if expression is no longer than 6
+        // else around with 2 numbers after point
         if Int(double).description.count < 6 {
             format = "%.5f"
         } else {
@@ -295,14 +330,17 @@ class Calculator {
         }
         
         stringDouble = String(format: format, double)
-        // remove O after .
+        
+        // remove O at the end of expression
         while stringDouble.last == "0"{
             stringDouble.removeLast()
         }
         
+        // remove point if number have no decimal
         if stringDouble.last == "."{
             stringDouble.removeLast()
         }
+        
         return stringDouble
     }
 }
