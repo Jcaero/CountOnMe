@@ -62,7 +62,7 @@ class Calculator {
             return
         }
         
-        // check if expression have enought place for number after
+        // check if expression have enough place for number after
         guard expression.count < expressionMaxLenght else {
             calculatorDelegate.showAlert(title: "Expression Max", description: "Votre calcul est trop long !")
             return
@@ -72,7 +72,7 @@ class Calculator {
         
         // check the max size of number
         guard elements.last!.count < numberMaxLenght else {
-            calculatorDelegate.showAlert(title: "Erreur", description: "vous ne pouvez pas dépaser 10 chiffres")
+            calculatorDelegate.showAlert(title: "Erreur", description: "vous ne pouvez pas dépasser 10 chiffres")
             return
         }
 
@@ -221,8 +221,8 @@ class Calculator {
         // calculate until expression have result
         while operationsToReduce.count > 1 {
             // identifie primary operator
-            if let primaryindex = operationsToReduce.firstIndex(where: {$0 == "×" || $0 == "÷" }) {
-                index = primaryindex
+            if let primaryIndex = operationsToReduce.firstIndex(where: {$0 == "×" || $0 == "÷" }) {
+                index = primaryIndex
             } else {
                 index = 1
             }
