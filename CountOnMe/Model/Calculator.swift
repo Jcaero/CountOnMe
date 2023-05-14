@@ -230,6 +230,14 @@ class Calculator {
             let left = Double(operationsToReduce[index-1])!
             let operand = operationsToReduce[index]
             let right = Double(operationsToReduce[index+1])!
+            
+            // check limitation of calculator
+            let numberMax = Double("1.79e+298")
+            guard left < numberMax! else {
+                calculatorDelegate.showAlert(title: "Nombre Max",
+                                             description: "Resultat trop grand!")
+                return
+            }
 
             switch operand {
             case "+": result = left + right
@@ -319,6 +327,8 @@ class Calculator {
 
         // expression is only decimal , show 8 number after point
         guard double.description.first != "0" else { return String(format: "%.8f", double) }
+        
+        guard double < 9223372036854775808 else { return String(format: "%.2e", double) }
         
         // expression have more than ten number before point, convert in scientifique
         guard Int(double).description.count < 10 else { return String(format: "%.2e", double)}
