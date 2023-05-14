@@ -425,6 +425,27 @@ class CalculatorTests: XCTestCase {
         XCTAssertEqual(alerteDesciption, "Votre calcul est trop long !")
     }
     
+    func testExpressionIsLong_WhenEgalHasBeenTapped_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("1.80e+298")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("9")
+       
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "1.80e+298 × 9")
+        XCTAssertEqual(alerteDesciption, "Resultat trop grand!")
+    }
+    
+    func testExpressionIsLong_WhenEgalHasBeenTapped_ExpressionIsScientific() {
+        calculate.numberHasBeenTapped("9999999999")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("9999999999")
+       
+        calculate.egalHasBeenTapped()
+        
+        XCTAssertEqual(display, "9999999999 × 9999999999 = 1.00e+20")
+    }
+    
     // test ac BUTTON
     func testExpressionIsFive_WhenClearExpression_ExpressionIsZeroAndButtonIsAc() {
     calculate.numberHasBeenTapped("5")

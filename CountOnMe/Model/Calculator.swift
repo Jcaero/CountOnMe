@@ -88,7 +88,7 @@ class Calculator {
     }
 
     private var canAddOperator: Bool {
-        return !operatorAvailable.contains(elements.last ?? "")
+        return !operatorAvailable.contains(elements.last!)
     }
 
     /**
