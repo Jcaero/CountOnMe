@@ -351,10 +351,11 @@ class CalculatorTests: XCTestCase {
     func testExpressionHaveTenNumbers_WhenTapNumber_ExpressionNotChange() {
         calculate.numberHasBeenTapped("5555555555")
 
+
         calculate.numberHasBeenTapped("5")
 
         XCTAssertEqual(display, "5555555555")
-        XCTAssertEqual(alerteDesciption, "vous ne pouvez pas dépaser 10 chiffres")
+        XCTAssertEqual(alerteDesciption, "vous ne pouvez pas dépasser 10 chiffres")
         
     }
     
