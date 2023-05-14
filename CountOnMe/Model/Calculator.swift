@@ -145,14 +145,14 @@ class Calculator {
         // expression have more than 3 elements and finish with number
         let valideExpression = expressionHaveEnoughElement && canAddOperator
         guard valideExpression else {
-            calculatorDelegate.showAlert(title: "Zéro!",
+            calculatorDelegate.showAlert(title: "Expression",
                                          description: "Entrez une expression correcte !")
             return
         }
 
         // expression have not result yet
         guard !expressionHaveResult else {
-            calculatorDelegate.showAlert(title: "Zéro!",
+            calculatorDelegate.showAlert(title: "Double Egal",
                                          description: "Démarrez un nouveau calcul !")
             return
         }
