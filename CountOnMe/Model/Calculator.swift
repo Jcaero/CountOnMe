@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol CalculatorDelegate {
+protocol CalculatorDelegate : AnyObject {
     func showAlert(title: String, description: String)
     func updateDisplay(_ expression: String)
     func updateClearButton(_ button: String)
@@ -17,7 +17,7 @@ protocol CalculatorDelegate {
 class Calculator {
 
     // Delegate
-    private let calculatorDelegate: CalculatorDelegate
+    private weak var calculatorDelegate: CalculatorDelegate?
     init(delegate: CalculatorDelegate) {
         self.calculatorDelegate = delegate
         expression = "0"
@@ -57,14 +57,14 @@ class Calculator {
 
         // check if selection is Zero and operator before is divide
         guard !(lastElementIsDivideOperator && selection == "0") else {
-            calculatorDelegate.showAlert(title: "Erreur",
+            calculatorDelegate!.showAlert(title: "Erreur",
                                          description: "Vous ne pouvez pas diviser par 0");
             return
         }
         
         // check if expression have enough place for number after
         guard expression.count < expressionMaxLenght else {
-            calculatorDelegate.showAlert(title: "Expression Max", description: "Votre calcul est trop long !")
+            calculatorDelegate!.showAlert(title: "Expression Max", description: "Votre calcul est trop long !")
             return
         }
         
@@ -72,7 +72,7 @@ class Calculator {
         
         // check the max size of number
         guard elements.last!.count < numberMaxLenght else {
-            calculatorDelegate.showAlert(title: "Erreur", description: "vous ne pouvez pas dépasser 10 chiffres")
+            calculatorDelegate!.showAlert(title: "Erreur", description: "vous ne pouvez pas dépasser 10 chiffres")
             return
         }
 
@@ -83,8 +83,8 @@ class Calculator {
 
         // add number to expression and update display
         expression += selection
-        calculatorDelegate.updateDisplay(expression)
-        calculatorDelegate.updateClearButton("C")
+        calculatorDelegate!.updateDisplay(expression)
+        calculatorDelegate!.updateClearButton("C")
     }
 
     private var canAddOperator: Bool {
@@ -99,7 +99,7 @@ class Calculator {
     func operatorHasBeenTapped(_ selection: String) {
         //check if it's a valide operator
         guard operatorAvailable.contains(selection) else {
-            calculatorDelegate.showAlert(title: "Erreur",
+            calculatorDelegate!.showAlert(title: "Erreur",
                                          description: "opérateur non reconnu par la calculatrice");
             return
         }
@@ -113,14 +113,14 @@ class Calculator {
 
         // if last elements is a operator, show alerte
         guard canAddOperator else {
-            calculatorDelegate.showAlert(title: "Erreur!",
+            calculatorDelegate!.showAlert(title: "Erreur!",
                                          description: "Entrez une expression correcte !");
             return
         }
         
         // check if expression have enough place for an operator and a number after
         guard expression.count <= (expressionMaxLenght - 4 ) else {
-            calculatorDelegate.showAlert(title: "Max",
+            calculatorDelegate!.showAlert(title: "Max",
                                          description: "Votre calcul est trop long !")
             return
         }
@@ -129,7 +129,7 @@ class Calculator {
         let operatorToAdd = " " + selection + " "
         expression.append(operatorToAdd)
 
-        calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate!.updateDisplay(expression)
     }
 
     // check if expression have enough element to build a calcule
@@ -145,21 +145,21 @@ class Calculator {
         // expression have more than 3 elements and finish with number
         let valideExpression = expressionHaveEnoughElement && canAddOperator
         guard valideExpression else {
-            calculatorDelegate.showAlert(title: "Expression",
+            calculatorDelegate!.showAlert(title: "Expression",
                                          description: "Entrez une expression correcte !")
             return
         }
 
         // expression have not result yet
         guard !expressionHaveResult else {
-            calculatorDelegate.showAlert(title: "Double Egal",
+            calculatorDelegate!.showAlert(title: "Double Egal",
                                          description: "Démarrez un nouveau calcul !")
             return
         }
 
         calcul()
-        calculatorDelegate.updateDisplay(expression)
-        calculatorDelegate.updateClearButton("AC")
+        calculatorDelegate!.updateDisplay(expression)
+        calculatorDelegate!.updateClearButton("AC")
     }
 
     /**
@@ -172,7 +172,7 @@ class Calculator {
         // check if selection is AC
         guard selection == "C" else {
             expression = "0";
-            calculatorDelegate.updateDisplay(expression);
+            calculatorDelegate!.updateDisplay(expression);
             return
         }
 
@@ -181,7 +181,7 @@ class Calculator {
         // if only one number, clear all expression
         guard elements.count > 1 else {
             clearExpression("AC");
-            calculatorDelegate.updateClearButton("AC");
+            calculatorDelegate!.updateClearButton("AC");
             return
         }
 
@@ -202,8 +202,8 @@ class Calculator {
 
         expression.removeSubrange(start...stop)
         
-        calculatorDelegate.updateClearButton("AC")
-        calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate!.updateClearButton("AC")
+        calculatorDelegate!.updateDisplay(expression)
     }
 
     /**
@@ -234,7 +234,7 @@ class Calculator {
             // check limitation of calculator
             let numberMax = Double("1.79e+298")
             guard left < numberMax! else {
-                calculatorDelegate.showAlert(title: "Nombre Max",
+                calculatorDelegate!.showAlert(title: "Nombre Max",
                                              description: "Resultat trop grand!")
                 return
             }
@@ -260,10 +260,17 @@ class Calculator {
     */
     func pointHasBeenTapped() {
         guard let lastElements = elements.last else { return }
+        
+        // if expression have result, clear expression and kepp the result
+        if elements.contains("=") {
+            if let result = elements.last {
+                expression = result
+            }
+        }
 
         // check if last number have already a point
         guard !lastElements.contains(".") else {
-            calculatorDelegate.showAlert(title: "Virgule",
+            calculatorDelegate!.showAlert(title: "Virgule",
                                          description: "Vous ne pouvez mettre qu'une virgule");
             return
         }
@@ -271,12 +278,12 @@ class Calculator {
         // check if last element is a operator and put zero before point
         guard !operatorAvailable.contains(lastElements) else {
             expression.append("0.")
-            calculatorDelegate.updateDisplay(expression)
+            calculatorDelegate!.updateDisplay(expression)
             return
         }
         
         expression.append(".")
-        calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate!.updateDisplay(expression)
     }
 
     /**
@@ -308,7 +315,7 @@ class Calculator {
         // replace with new number
         expression.append(convertInString(lastNumber))
 
-        calculatorDelegate.updateDisplay(expression)
+        calculatorDelegate!.updateDisplay(expression)
     }
 
     /**

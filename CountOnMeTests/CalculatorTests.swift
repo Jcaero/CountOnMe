@@ -455,6 +455,18 @@ class CalculatorTests: XCTestCase {
     XCTAssertEqual(display, "0")
     XCTAssertEqual(acButton, "AC")
     }
+    
+    // point test after result
+    func testExpressionHaveResult_WhenPointTapped_ExpressionClearResultAndAddButton() {
+        calculate.numberHasBeenTapped("5")
+        calculate.operatorHasBeenTapped("+")
+        calculate.numberHasBeenTapped("2")
+        calculate.egalHasBeenTapped()
+        
+        calculate.pointHasBeenTapped()
+        
+        XCTAssertEqual(display, "7.")
+    }
 }
 
 extension CalculatorTests: CalculatorDelegate {
