@@ -467,6 +467,19 @@ class CalculatorTests: XCTestCase {
         
         XCTAssertEqual(display, "7.")
     }
+    
+    func testExpressionHaveSxientificResult_WhenPointTapped_ExpressionNotChangeAndShowAlerte() {
+        calculate.numberHasBeenTapped("9999999999")
+        calculate.operatorHasBeenTapped("×")
+        calculate.numberHasBeenTapped("9999999999")
+        calculate.egalHasBeenTapped()
+        
+        calculate.pointHasBeenTapped()
+        
+        XCTAssertEqual(display, "9999999999 × 9999999999 = 1.00e+20")
+        XCTAssertEqual(alerteDesciption, "Vous ne pouvez mettre qu'une virgule")
+    }
+    
 }
 
 extension CalculatorTests: CalculatorDelegate {

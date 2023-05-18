@@ -261,18 +261,18 @@ class Calculator {
     func pointHasBeenTapped() {
         guard let lastElements = elements.last else { return }
         
-        // if expression have result, clear expression and kepp the result
-        if elements.contains("=") {
-            if let result = elements.last {
-                expression = result
-            }
-        }
-
         // check if last number have already a point
         guard !lastElements.contains(".") else {
             calculatorDelegate!.showAlert(title: "Virgule",
                                          description: "Vous ne pouvez mettre qu'une virgule");
             return
+        }
+        
+        // if expression have result, clear expression and kepp the result
+        if elements.contains("=") {
+            if let result = elements.last {
+                expression = result
+            }
         }
 
         // check if last element is a operator and put zero before point
