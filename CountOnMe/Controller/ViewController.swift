@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let silverColor = UIColor(red: 89, green: 77, blue: 70, alpha: 1)
-    let goldLefColor = UIColor(red: 209, green: 178, blue: 128, alpha: 1)
+    let silverColor = UIColor(red: 0.35, green: 0.30, blue: 0.27, alpha: 1.0)
+    let goldLefColor = UIColor(red: 0.82, green: 0.70, blue: 0.5, alpha: 1)
     
     let acButton = UIButton(type: .system)
     let pointButton = UIButton(type: .system)
@@ -19,10 +19,13 @@ class ViewController: UIViewController {
     let egalButton = UIButton(type: .system)
     
     let numbersButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9"]
-    var numbersButtons: [UIButton] = []
-    
     let operateursButtonsTitles = ["+", "-", "×","÷"]
-    var operateursButtons: [UIButton] = []
+    var buttonsListe = [String:UIButton]()
+    
+    let stackViewMain = UIStackView()
+    let stackViewVertical1 = UIStackView()
+    let stackViewVertical2 = UIStackView()
+    let stackViewVertical3 = UIStackView()
     
     @IBOutlet weak var textLbl: UILabel!
     
@@ -74,50 +77,84 @@ class ViewController: UIViewController {
     
     // creation of bouttons
     private func setupBoutons() {
-        
         // déclaration of bouttons nombre
         for title in numbersButtonsTitles {
-            let button = UIButton(type: .system)
-            button.setTitle(title, for: .normal)
-            setColorButton(button, background: silverColor, titre: .white)
-            button.addTarget(self, action: #selector(tappedNumberButton(_:)), for: .touchUpInside)
-            numbersButtons.append(button)
+            createButton(title, style: .silver, selector: #selector(tappedNumberButton(_:)))
         }
         
         // declaration of operateurs
         for title in operateursButtonsTitles {
-            let button = UIButton(type: .system)
-            button.setTitle(title, for: .normal)
-            setColorButton(button, background: goldLefColor, titre: silverColor)
-            button.addTarget(self, action: #selector(tappedOpperatorButton(_:)), for: .touchUpInside)
-            operateursButtons.append(button)
+            createButton(title, style: .goldLeaf, selector: #selector(tappedOpperatorButton(_:)))
         }
         
-        pointButton.setTitle(".", for: .normal)
-        pointButton.addTarget(self, action: #selector(tappedPointButton(_:)), for: .touchUpInside)
-        setColorButton(pointButton, background: silverColor, titre: .white)
-        
-        signButton.setTitle("+/-", for: .normal)
-        signButton.addTarget(self, action: #selector(tappedChangeSign(_:)), for: .touchUpInside)
-        setColorButton(signButton, background: goldLefColor, titre: silverColor)
-        
-        egalButton.setTitle("=", for: .normal)
-        egalButton.addTarget(self, action: #selector(tappedEqualButton(_:)), for: .touchUpInside)
-        setColorButton(egalButton, background: goldLefColor, titre: silverColor)
-        
-        acButton.setTitle("AC", for: .normal)
-        acButton.addTarget(self, action: #selector(tappedACButton(_:)), for: .touchUpInside)
-        setColorButton(acButton, background: goldLefColor, titre: silverColor)
+        createButton(".", style: .silver, selector:  #selector(tappedPointButton(_:)))
+        createButton("+/-", style: .goldLeaf, selector:  #selector(tappedChangeSign(_:)))
+        createButton("=", style: .goldLeaf, selector:  #selector(tappedEqualButton(_:)))
+        createButton("AC", style: .goldLeaf, selector:  #selector(tappedACButton(_:)))
     }
     
+    private func createButton(_ title: String, style : buttonStyle, selector : Selector){
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        switch style {
+        case .silver:
+            setColorButton(button, background: silverColor, titre: .white)
+        case .goldLeaf:
+            setColorButton(button, background: goldLefColor, titre: silverColor)
+        }
+        button.addTarget(self, action: selector , for: .touchUpInside)
+        buttonsListe[title] = button
+        
+    }
+
     private func setColorButton(_ boutton: UIButton, background: UIColor, titre: UIColor){
         boutton.backgroundColor = background
         boutton.setTitleColor(titre, for: .normal)
     }
     
     private func setupButtonsLayout() {
+        setupStackView(stackViewMain, axis: .horizontal, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        setupStackView(stackViewVertical1, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        setupStackView(stackViewVertical2, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        setupStackView(stackViewVertical3, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        
+        addButtonInStackView(stackViewVertical1, array: ["AC", "1", "4", "7"])
+        addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
+        addButtonInStackView(stackViewVertical3, array: ["÷", "3", "6", "9"])
+        
+        stackViewMain.addArrangedSubview(stackViewVertical1)
+        stackViewMain.addArrangedSubview(stackViewVertical2)
+        stackViewMain.addArrangedSubview(stackViewVertical3)
+
+        
+        view.addSubview(stackViewMain)
+        let button = buttonsListe["AC"]!
+        
+        NSLayoutConstraint.activate([
+            stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
+            stackViewMain.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5),
+            stackViewMain.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 1.0)
+        ])
         
     }
+    
+    private func setupStackView( _ stackView: UIStackView, axis : NSLayoutConstraint.Axis, spacing: CGFloat, alignement: UIStackView.Alignment, distribution: UIStackView.Distribution ) {
+        stackView.axis = axis
+        stackView.spacing = spacing
+        stackView.alignment = alignement
+        stackView.distribution = distribution
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func addButtonInStackView(_ stackView: UIStackView, array : [String]){
+        for buttonName in array {
+            if let button = buttonsListe[buttonName]{
+                stackView.addArrangedSubview(button)
+            }
+        }
+    }
+    
 }
 
 extension ViewController: CalculatorDelegate {
@@ -132,6 +169,6 @@ extension ViewController: CalculatorDelegate {
     }
 
     func updateDisplay(_ expression: String) {
-        textLbl.text = expression
+      //  textLbl.text = expression
     }
 }
