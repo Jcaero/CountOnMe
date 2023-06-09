@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     let stackViewVertical3 = UIStackView()
     let stackViewOperator = UIStackView()
     
-    @IBOutlet weak var textLbl: UILabel!
+    let textLbl = UILabel()
     
     private var calculate: Calculator!
 
@@ -35,30 +35,11 @@ class ViewController: UIViewController {
         
         setupBoutons()
         setupButtonsLayout()
+        
+        setupLabel()
+        setupLabelLayout()
     }
     
-    @objc func tappedButton(_ sender: UIButton) {
-        guard let titre = sender.currentTitle else {
-            return
-        }
-        
-        switch titre {
-        case "0", "1", "2","3", "4", "5","6", "7", "8", "9" :
-            calculate.numberHasBeenTapped(titre)
-        case "+", "-", "×","÷" :
-            calculate.operatorHasBeenTapped(titre)
-        case "=" :
-            calculate.egalHasBeenTapped()
-        case "AC", "C" :
-            calculate.clearExpression(titre)
-        case "+/-":
-            calculate.changeSignTapped()
-        case ".":
-            calculate.pointHasBeenTapped()
-        default :
-            print ("boutton inconnu")
-        }
-    }
 
     private func setupBoutons() {
         for title in silverButtonsTitles {
@@ -115,7 +96,7 @@ class ViewController: UIViewController {
         view.addSubview(stackViewMain)
         NSLayoutConstraint.activate([
             stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
-            buttonsListe["AC"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.heightAnchor, multiplier: 1.0)
+            buttonsListe["AC"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.heightAnchor)
         ])
         
         // stackview operator
@@ -126,7 +107,7 @@ class ViewController: UIViewController {
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["+"]!.heightAnchor, multiplier: 1.0),
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.widthAnchor),
             buttonsListe["×"]!.centerYAnchor.constraint(equalTo: buttonsListe["AC"]!.centerYAnchor),
-            stackViewOperator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            stackViewOperator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5),
             stackViewOperator.leftAnchor.constraint(equalTo: stackViewMain.rightAnchor, constant: 10),
         ])
         
@@ -174,6 +155,50 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    @objc func tappedButton(_ sender: UIButton) {
+        guard let titre = sender.currentTitle else {
+            return
+        }
+        
+        switch titre {
+        case "0", "1", "2","3", "4", "5","6", "7", "8", "9" :
+            calculate.numberHasBeenTapped(titre)
+        case "+", "-", "×","÷" :
+            calculate.operatorHasBeenTapped(titre)
+        case "=" :
+            calculate.egalHasBeenTapped()
+        case "AC", "C" :
+            calculate.clearExpression(titre)
+        case "+/-":
+            calculate.changeSignTapped()
+        case ".":
+            calculate.pointHasBeenTapped()
+        default :
+            print ("boutton inconnu")
+        }
+    }
+
+    private func setupLabel() {
+        textLbl.backgroundColor = silverColor
+        textLbl.textColor = .white
+        textLbl.font = UIFont.systemFont(ofSize: 80)
+        textLbl.minimumScaleFactor = 0.5
+        textLbl.adjustsFontSizeToFitWidth = true
+        textLbl.numberOfLines = 3
+        textLbl.textAlignment = .right
+    }
+    
+    private func setupLabelLayout() {
+        textLbl.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview( textLbl)
+        NSLayoutConstraint.activate([
+            textLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            textLbl.bottomAnchor.constraint(equalTo: stackViewMain.topAnchor , constant: -10),
+            textLbl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
+            textLbl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5)
+        ])
+    }
 }
 
 extension ViewController: CalculatorDelegate {
@@ -188,6 +213,6 @@ extension ViewController: CalculatorDelegate {
     }
 
     func updateDisplay(_ expression: String) {
-      //  textLbl.text = expression
+        textLbl.text = expression
     }
 }
