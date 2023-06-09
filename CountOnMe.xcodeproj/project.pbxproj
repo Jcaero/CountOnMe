@@ -14,7 +14,6 @@
 		471A3EC029FE602D005D94F9 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471A3EBF29FE602D005D94F9 /* Calculator.swift */; };
 		4792D68B2A325DC100131B18 /* buttonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4792D68A2A325DC100131B18 /* buttonStyle.swift */; };
 		47BD3CE32A113F8F00025AC9 /* CountOnMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BD3CE22A113F8F00025AC9 /* CountOnMeUITests.swift */; };
-		47C59C492A092DFC001BB896 /* CornerRoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C59C482A092DFC001BB896 /* CornerRoundedButton.swift */; };
 		47C9D57C29FEFCF000D6B016 /* CalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C9D57B29FEFCF000D6B016 /* CalculatorTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +48,6 @@
 		471A3EBF29FE602D005D94F9 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		4792D68A2A325DC100131B18 /* buttonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttonStyle.swift; sourceTree = "<group>"; };
 		47BD3CE22A113F8F00025AC9 /* CountOnMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountOnMeUITests.swift; sourceTree = "<group>"; };
-		47C59C482A092DFC001BB896 /* CornerRoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRoundedButton.swift; sourceTree = "<group>"; };
 		47C9D57B29FEFCF000D6B016 /* CalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,7 +147,6 @@
 		471A3EBD29FE5F01005D94F9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				47C59C482A092DFC001BB896 /* CornerRoundedButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,7 +292,6 @@
 			files = (
 				1FA43BD5224E569900F565CB /* ViewController.swift in Sources */,
 				1FA43BD3224E569900F565CB /* AppDelegate.swift in Sources */,
-				47C59C492A092DFC001BB896 /* CornerRoundedButton.swift in Sources */,
 				4792D68B2A325DC100131B18 /* buttonStyle.swift in Sources */,
 				471A3EC029FE602D005D94F9 /* Calculator.swift in Sources */,
 			);
