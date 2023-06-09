@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     let silverButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "."]
     let goldLeafButtonsTitles = ["+", "-", "×","÷","AC","+/-","="]
-    var buttonsListe = [String:UIButton]()
+    var buttonsListe = [String:CornerRoundedButton]()
     
     let stackViewMain = UIStackView()
     let stackViewVertical1 = UIStackView()
@@ -70,16 +70,19 @@ class ViewController: UIViewController {
     }
     
     private func createButton(_ title: String, style : UIColor) {
-        let button = UIButton(type: .system)
+        let button = CornerRoundedButton(type: .system)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.masksToBounds = true
         
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         
         switch style {
         case silverColor:
-            setColorButton(button, background: silverColor, titre: .white)
+            button.setColor( background: silverColor, titre: .white)
         case goldLeafColor:
-            setColorButton(button, background: goldLeafColor, titre: silverColor)
+            button.setColor(background: goldLeafColor, titre: silverColor)
         default:
             print("couleur inconnu")
         }
@@ -100,15 +103,6 @@ class ViewController: UIViewController {
         setupStackView(stackViewVertical3, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
         setupStackView(stackViewOperator, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
         
-        for (_ , button) in buttonsListe {
-            button.translatesAutoresizingMaskIntoConstraints = false
-             if button.frame.height > button.frame.width {
-                 button.layer.cornerRadius = button.frame.width * 0.1
-             } else {
-                 button.layer.cornerRadius = button.frame.height * 0.1
-             }
-        }
-       
         // setup main stackview
         addButtonInStackView(stackViewVertical1, array: ["AC", "1", "4", "7"])
         addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
