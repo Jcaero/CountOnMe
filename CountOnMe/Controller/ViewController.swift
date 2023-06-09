@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController {
 
     let silverColor = UIColor(red: 0.35, green: 0.30, blue: 0.27, alpha: 1.0)
-    let goldLefColor = UIColor(red: 0.82, green: 0.70, blue: 0.5, alpha: 1)
+    let goldLeafColor = UIColor(red: 0.82, green: 0.70, blue: 0.5, alpha: 1)
     
-    let numbersButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9"]
-    let operateursButtonsTitles = ["+", "-", "×","÷"]
+    let silverButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "."]
+    let goldLeafButtonsTitles = ["+", "-", "×","÷","AC","+/-","="]
     var buttonsListe = [String:UIButton]()
     
     let stackViewMain = UIStackView()
@@ -36,74 +36,56 @@ class ViewController: UIViewController {
         setupBoutons()
         setupButtonsLayout()
     }
-
-    // View actions
-    @objc func tappedNumberButton(_ sender: UIButton) {
-        guard let numberText = sender.currentTitle else {
-            return
-        }
-        calculate.numberHasBeenTapped(numberText)
-    }
-
-    @objc func tappedOpperatorButton(_ sender: UIButton) {
-        guard let operatorText = sender.title(for: .normal) else {
-            return
-        }
-        calculate.operatorHasBeenTapped(operatorText)
-    }
-
-    @objc func tappedEqualButton(_ sender: UIButton) {
-        calculate.egalHasBeenTapped()
-    }
-
-    @objc func tappedACButton(_ sender: UIButton) {
-        guard let clearText = sender.title(for: .normal) else {
-            return
-        }
-        calculate.clearExpression(clearText)
-    }
-
-    @objc func tappedChangeSign(_ sender: UIButton) {
-        calculate.changeSignTapped()
-    }
-
-    @objc func tappedPointButton(_ sender: UIButton) {
-        calculate.pointHasBeenTapped()
-    }
     
-    // creation of bouttons
+    @objc func tappedButton(_ sender: UIButton) {
+        guard let titre = sender.currentTitle else {
+            return
+        }
+        
+        switch titre {
+        case "0", "1", "2","3", "4", "5","6", "7", "8", "9" :
+            calculate.numberHasBeenTapped(titre)
+        case "+", "-", "×","÷" :
+            calculate.operatorHasBeenTapped(titre)
+        case "=" :
+            calculate.egalHasBeenTapped()
+        case "AC", "C" :
+            calculate.clearExpression(titre)
+        case "+/-":
+            calculate.changeSignTapped()
+        case ".":
+            calculate.pointHasBeenTapped()
+        default :
+            print ("boutton inconnu")
+        }
+    }
+
     private func setupBoutons() {
-        // déclaration of bouttons nombre
-        for title in numbersButtonsTitles {
-            createButton(title, style: .silver, selector: #selector(tappedNumberButton(_:)))
+        for title in silverButtonsTitles {
+            createButton(title, style: silverColor)
         }
-        
-        // declaration of operateurs
-        for title in operateursButtonsTitles {
-            createButton(title, style: .goldLeaf, selector: #selector(tappedOpperatorButton(_:)))
+        for title in goldLeafButtonsTitles {
+            createButton(title, style: goldLeafColor)
         }
-        
-        createButton(".", style: .silver, selector:  #selector(tappedPointButton(_:)))
-        createButton("+/-", style: .goldLeaf, selector:  #selector(tappedChangeSign(_:)))
-        createButton("=", style: .goldLeaf, selector:  #selector(tappedEqualButton(_:)))
-        createButton("AC", style: .goldLeaf, selector:  #selector(tappedACButton(_:)))
     }
     
-    private func createButton(_ title: String, style : buttonStyle, selector : Selector) {
+    private func createButton(_ title: String, style : UIColor) {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        
         switch style {
-        case .silver:
+        case silverColor:
             setColorButton(button, background: silverColor, titre: .white)
-        case .goldLeaf:
-            setColorButton(button, background: goldLefColor, titre: silverColor)
+        case goldLeafColor:
+            setColorButton(button, background: goldLeafColor, titre: silverColor)
+        default:
+            print("couleur inconnu")
         }
         
-        button.addTarget(self, action: selector , for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedButton(_:)) , for: .touchUpInside)
         buttonsListe[title] = button
-        
     }
 
     private func setColorButton(_ boutton: UIButton, background: UIColor, titre: UIColor) {
@@ -118,6 +100,15 @@ class ViewController: UIViewController {
         setupStackView(stackViewVertical3, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
         setupStackView(stackViewOperator, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
         
+        for (_ , button) in buttonsListe {
+            button.translatesAutoresizingMaskIntoConstraints = false
+             if button.frame.height > button.frame.width {
+                 button.layer.cornerRadius = button.frame.width * 0.1
+             } else {
+                 button.layer.cornerRadius = button.frame.height * 0.1
+             }
+        }
+       
         // setup main stackview
         addButtonInStackView(stackViewVertical1, array: ["AC", "1", "4", "7"])
         addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
@@ -141,7 +132,7 @@ class ViewController: UIViewController {
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["+"]!.heightAnchor, multiplier: 1.0),
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.widthAnchor),
             buttonsListe["×"]!.centerYAnchor.constraint(equalTo: buttonsListe["AC"]!.centerYAnchor),
-            stackViewOperator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10),
+            stackViewOperator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             stackViewOperator.leftAnchor.constraint(equalTo: stackViewMain.rightAnchor, constant: 10),
         ])
         
@@ -172,14 +163,6 @@ class ViewController: UIViewController {
             buttonsListe["="]!.topAnchor.constraint(equalTo: stackViewOperator.bottomAnchor, constant: 10),
             buttonsListe["="]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-       
-        /*
-        if button.frame.height > button.frame.width {
-            button.layer.cornerRadius = button.frame.width * 0.1
-        } else {
-            button.layer.cornerRadius = button.frame.height * 0.1
-        }*/
-      
     }
     
     private func setupStackView( _ stackView: UIStackView, axis : NSLayoutConstraint.Axis, spacing: CGFloat, alignement: UIStackView.Alignment, distribution: UIStackView.Distribution ) {
@@ -197,7 +180,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension ViewController: CalculatorDelegate {
