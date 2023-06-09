@@ -91,6 +91,7 @@ class ViewController: UIViewController {
     
     private func createButton(_ title: String, style : buttonStyle, selector : Selector) {
         let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
         switch style {
@@ -99,6 +100,7 @@ class ViewController: UIViewController {
         case .goldLeaf:
             setColorButton(button, background: goldLefColor, titre: silverColor)
         }
+        
         button.addTarget(self, action: selector , for: .touchUpInside)
         buttonsListe[title] = button
         
@@ -107,11 +109,6 @@ class ViewController: UIViewController {
     private func setColorButton(_ boutton: UIButton, background: UIColor, titre: UIColor) {
         boutton.backgroundColor = background
         boutton.setTitleColor(titre, for: .normal)
-        if boutton.frame.height > boutton.frame.width {
-            boutton.layer.cornerRadius = boutton.frame.width * 0.1
-        } else {
-            boutton.layer.cornerRadius = boutton.frame.height * 0.1
-        }
     }
     
     private func setupButtonsLayout() {
@@ -133,7 +130,6 @@ class ViewController: UIViewController {
         view.addSubview(stackViewMain)
         NSLayoutConstraint.activate([
             stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
-            stackViewMain.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             buttonsListe["AC"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.heightAnchor, multiplier: 1.0)
         ])
         
@@ -143,14 +139,47 @@ class ViewController: UIViewController {
         view.addSubview(stackViewOperator)
         NSLayoutConstraint.activate([
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["+"]!.heightAnchor, multiplier: 1.0),
-            buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.widthAnchor, multiplier: 1),
+            buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["AC"]!.widthAnchor),
             buttonsListe["×"]!.centerYAnchor.constraint(equalTo: buttonsListe["AC"]!.centerYAnchor),
             stackViewOperator.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10),
             stackViewOperator.leftAnchor.constraint(equalTo: stackViewMain.rightAnchor, constant: 10),
         ])
         
         // Point boutton
+        view.addSubview( buttonsListe["."]!)
+        NSLayoutConstraint.activate([
+            buttonsListe["."]!.widthAnchor.constraint(equalTo: buttonsListe["."]!.heightAnchor, multiplier: 1.0),
+            buttonsListe["."]!.widthAnchor.constraint(equalTo: buttonsListe["9"]!.widthAnchor),
+            buttonsListe["."]!.centerXAnchor.constraint(equalTo: buttonsListe["9"]!.centerXAnchor),
+            buttonsListe["."]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
+            buttonsListe["."]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
         
+        // zero button
+        view.addSubview( buttonsListe["0"]!)
+        NSLayoutConstraint.activate([
+            buttonsListe["0"]!.leftAnchor.constraint(equalTo: buttonsListe["7"]!.leftAnchor),
+            buttonsListe["0"]!.rightAnchor.constraint(equalTo: buttonsListe["."]!.leftAnchor, constant: -10),
+            buttonsListe["0"]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
+            buttonsListe["0"]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
+        
+        // egal button
+        view.addSubview( buttonsListe["="]!)
+        NSLayoutConstraint.activate([
+            buttonsListe["="]!.leftAnchor.constraint(equalTo:buttonsListe["."]!.rightAnchor , constant: 10),
+            buttonsListe["="]!.widthAnchor.constraint(equalTo: buttonsListe["."]!.widthAnchor),
+            buttonsListe["="]!.topAnchor.constraint(equalTo: stackViewOperator.bottomAnchor, constant: 10),
+            buttonsListe["="]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+        ])
+       
+        /*
+        if button.frame.height > button.frame.width {
+            button.layer.cornerRadius = button.frame.width * 0.1
+        } else {
+            button.layer.cornerRadius = button.frame.height * 0.1
+        }*/
+      
     }
     
     private func setupStackView( _ stackView: UIStackView, axis : NSLayoutConstraint.Axis, spacing: CGFloat, alignement: UIStackView.Alignment, distribution: UIStackView.Distribution ) {
