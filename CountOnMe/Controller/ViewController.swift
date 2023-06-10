@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     let silverButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "."]
     let goldLeafButtonsTitles = ["+", "-", "×","÷","AC","+/-","="]
-    var buttonsListe = [String:CornerRoundedButton]()
+    var buttonsListe = [String:UIButton]()
     
     let stackViewMain = UIStackView()
     let stackViewVertical1 = UIStackView()
@@ -40,7 +40,16 @@ class ViewController: UIViewController {
         setupLabelLayout()
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        for (_,button) in buttonsListe {
+            if button.frame.height > button.frame.width {
+                button.layer.cornerRadius = button.frame.width * 0.1
+            } else {
+                button.layer.cornerRadius = button.frame.height * 0.1
+            }
+        }
+    }
+    
     private func setupBoutons() {
         for title in silverButtonsTitles {
             createButton(title, style: silverColor)
@@ -51,7 +60,7 @@ class ViewController: UIViewController {
     }
     
     private func createButton(_ title: String, style : UIColor) {
-        let button = CornerRoundedButton(type: .system)
+        let button = UIButton(type: .system)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.masksToBounds = true
@@ -61,9 +70,11 @@ class ViewController: UIViewController {
         
         switch style {
         case silverColor:
-            button.setColor( background: silverColor, titre: .white)
+            button.backgroundColor = silverColor
+            button.setTitleColor(.white, for: .normal)
         case goldLeafColor:
-            button.setColor(background: goldLeafColor, titre: silverColor)
+            button.backgroundColor = goldLeafColor
+            button.setTitleColor(silverColor, for: .normal)
         default:
             print("couleur inconnu")
         }
