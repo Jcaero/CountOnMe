@@ -9,9 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    let silverColor = UIColor(red: 0.35, green: 0.30, blue: 0.27, alpha: 1.0)
-    let goldLeafColor = UIColor(red: 0.82, green: 0.70, blue: 0.5, alpha: 1)
     
     let silverButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "."]
     let goldLeafButtonsTitles = ["+", "-", "×","÷","AC","+/-","="]
@@ -26,7 +23,7 @@ class ViewController: UIViewController {
     let textLbl = UILabel()
     
     private var calculate: Calculator!
-
+    
     // View Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +36,11 @@ class ViewController: UIViewController {
         setupLabel()
         setupLabelLayout()
     }
+   
+#warning ("changement de borne")
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         for (_,button) in buttonsListe {
@@ -49,46 +51,24 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    private func setupBoutons() {
-        for title in silverButtonsTitles {
-            createButton(title, style: silverColor)
-        }
-        for title in goldLeafButtonsTitles {
-            createButton(title, style: goldLeafColor)
-        }
-    }
-    
-    private func createButton(_ title: String, style : UIColor) {
-        let button = UIButton(type: .system)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.masksToBounds = true
-        
-        button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
-        
-        switch style {
-        case silverColor:
-            button.backgroundColor = silverColor
-            button.setTitleColor(.white, for: .normal)
-        case goldLeafColor:
-            button.backgroundColor = goldLeafColor
-            button.setTitleColor(silverColor, for: .normal)
-        default:
-            print("couleur inconnu")
-        }
-        
-        button.addTarget(self, action: #selector(tappedButton(_:)) , for: .touchUpInside)
-        buttonsListe[title] = button
-    }
 
-    private func setColorButton(_ boutton: UIButton, background: UIColor, titre: UIColor) {
-        boutton.backgroundColor = background
-        boutton.setTitleColor(titre, for: .normal)
+    private func setupBoutons() {
+        
+        CalculatorSigns.allCases.forEach {
+            let button = CalculatorButton(sign: $0)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.layer.masksToBounds = true
+            button.addTarget(self, action: #selector(tappedButton(_:)) , for: .touchUpInside)
+            self.buttonsListe[$0.rawValue] = button
+        }
     }
     
     private func setupButtonsLayout() {
+        //
+        [stackViewMain, stackViewVertical1].forEach {
+            setupStackView($0, axis: .horizontal, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        }
+        
         setupStackView(stackViewMain, axis: .horizontal, spacing: 10, alignement: .fill, distribution: .fillEqually)
         setupStackView(stackViewVertical1, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
         setupStackView(stackViewVertical2, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
@@ -100,10 +80,12 @@ class ViewController: UIViewController {
         addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
         addButtonInStackView(stackViewVertical3, array: ["÷", "3", "6", "9"])
         
+        
+        
         stackViewMain.addArrangedSubview(stackViewVertical1)
         stackViewMain.addArrangedSubview(stackViewVertical2)
         stackViewMain.addArrangedSubview(stackViewVertical3)
-
+        
         view.addSubview(stackViewMain)
         NSLayoutConstraint.activate([
             stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
@@ -112,7 +94,7 @@ class ViewController: UIViewController {
         
         // stackview operator
         addButtonInStackView(stackViewOperator, array: ["×", "-", "+"])
-    
+        
         view.addSubview(stackViewOperator)
         NSLayoutConstraint.activate([
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["+"]!.heightAnchor, multiplier: 1.0),
@@ -131,7 +113,7 @@ class ViewController: UIViewController {
             buttonsListe["."]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
             buttonsListe["."]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        
+
         // zero button
         view.addSubview( buttonsListe["0"]!)
         NSLayoutConstraint.activate([
@@ -140,7 +122,7 @@ class ViewController: UIViewController {
             buttonsListe["0"]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
             buttonsListe["0"]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
-        
+
         // egal button
         view.addSubview( buttonsListe["="]!)
         NSLayoutConstraint.activate([
@@ -150,7 +132,7 @@ class ViewController: UIViewController {
             buttonsListe["="]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
-    
+
     private func setupStackView( _ stackView: UIStackView, axis : NSLayoutConstraint.Axis, spacing: CGFloat, alignement: UIStackView.Alignment, distribution: UIStackView.Distribution ) {
         stackView.axis = axis
         stackView.spacing = spacing
@@ -189,9 +171,9 @@ class ViewController: UIViewController {
             print ("boutton inconnu")
         }
     }
-
+    
     private func setupLabel() {
-        textLbl.backgroundColor = silverColor
+        textLbl.backgroundColor = .silverColor
         textLbl.textColor = .white
         textLbl.font = UIFont.systemFont(ofSize: 80)
         textLbl.minimumScaleFactor = 0.5
@@ -216,13 +198,13 @@ extension ViewController: CalculatorDelegate {
     func updateClearButton(_ button: String) {
         buttonsListe["AC"]!.setTitle(button, for: .normal)
     }
-
+    
     func showAlert(title: String, description: String) {
         let alertVC = UIAlertController(title: title, message: description, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return self.present(alertVC, animated: true, completion: nil)
     }
-
+    
     func updateDisplay(_ expression: String) {
         textLbl.text = expression
     }
