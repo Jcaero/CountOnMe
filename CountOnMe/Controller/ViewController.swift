@@ -53,7 +53,6 @@ class ViewController: UIViewController {
     }
 
     private func setupBoutons() {
-        
         CalculatorSigns.allCases.forEach {
             let button = CalculatorButton(sign: $0)
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -64,28 +63,17 @@ class ViewController: UIViewController {
     }
     
     private func setupButtonsLayout() {
-        //
-        [stackViewMain, stackViewVertical1].forEach {
-            setupStackView($0, axis: .horizontal, spacing: 10, alignement: .fill, distribution: .fillEqually)
-        }
-        
         setupStackView(stackViewMain, axis: .horizontal, spacing: 10, alignement: .fill, distribution: .fillEqually)
-        setupStackView(stackViewVertical1, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
-        setupStackView(stackViewVertical2, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
-        setupStackView(stackViewVertical3, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
-        setupStackView(stackViewOperator, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
+        [stackViewVertical1, stackViewVertical2, stackViewVertical3, stackViewOperator].forEach {
+            setupStackView($0, axis: .vertical, spacing: 10, alignement: .fill, distribution: .fillEqually)
+            stackViewMain.addArrangedSubview($0)
+        }
         
         // setup main stackview
         addButtonInStackView(stackViewVertical1, array: ["AC", "1", "4", "7"])
         addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
         addButtonInStackView(stackViewVertical3, array: ["÷", "3", "6", "9"])
-        
-        
-        
-        stackViewMain.addArrangedSubview(stackViewVertical1)
-        stackViewMain.addArrangedSubview(stackViewVertical2)
-        stackViewMain.addArrangedSubview(stackViewVertical3)
-        
+   
         view.addSubview(stackViewMain)
         NSLayoutConstraint.activate([
             stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
@@ -105,13 +93,15 @@ class ViewController: UIViewController {
         ])
         
         // Point boutton
-        view.addSubview( buttonsListe["."]!)
+        #warning("creation boutton")
+        guard let buttonPoint = buttonsListe["."] else {return }
+        view.addSubview( buttonPoint)
         NSLayoutConstraint.activate([
-            buttonsListe["."]!.widthAnchor.constraint(equalTo: buttonsListe["."]!.heightAnchor, multiplier: 1.0),
-            buttonsListe["."]!.widthAnchor.constraint(equalTo: buttonsListe["9"]!.widthAnchor),
-            buttonsListe["."]!.centerXAnchor.constraint(equalTo: buttonsListe["9"]!.centerXAnchor),
-            buttonsListe["."]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
-            buttonsListe["."]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            buttonPoint.widthAnchor.constraint(equalTo: buttonPoint.heightAnchor, multiplier: 1.0),
+            buttonPoint.widthAnchor.constraint(equalTo: buttonsListe["9"]!.widthAnchor),
+            buttonPoint.centerXAnchor.constraint(equalTo: buttonsListe["9"]!.centerXAnchor),
+            buttonPoint.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
+            buttonPoint.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
 
         // zero button
@@ -150,9 +140,7 @@ class ViewController: UIViewController {
     }
     
     @objc func tappedButton(_ sender: UIButton) {
-        guard let titre = sender.currentTitle else {
-            return
-        }
+        guard let titre = sender.currentTitle else { return }
         
         switch titre {
         case "0", "1", "2","3", "4", "5","6", "7", "8", "9" :
