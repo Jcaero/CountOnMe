@@ -9,9 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    let silverButtonsTitles = ["0", "1", "2","3", "4", "5","6", "7", "8", "9", "."]
-    let goldLeafButtonsTitles = ["+", "-", "×","÷","AC","+/-","="]
+
     var buttonsListe = [String:UIButton]()
     
     let stackViewMain = UIStackView()
