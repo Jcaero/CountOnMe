@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         setupLabelLayout()
     }
    
-#warning ("changement de borne")
+#warning ("changement de borne de la view ou au didappear")
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -91,7 +91,7 @@ class ViewController: UIViewController {
         ])
         
         // Point boutton
-        #warning("creation boutton")
+        #warning("creation boutton avant de mettre la contrainte ???????")
         guard let buttonPoint = buttonsListe["."] else {return }
         view.addSubview( buttonPoint)
         NSLayoutConstraint.activate([
