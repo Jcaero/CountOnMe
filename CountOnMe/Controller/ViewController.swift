@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         setupLabelLayout()
     }
    
-#warning ("changement de borne de la view ou au didappear")
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -72,6 +72,11 @@ class ViewController: UIViewController {
         addButtonInStackView(stackViewVertical2, array: ["+/-", "2", "5", "8"])
         addButtonInStackView(stackViewVertical3, array: ["÷", "3", "6", "9"])
    
+        guard let equalButton = buttonsListe["="],
+              let zeroButton = buttonsListe["0"] else {
+            return
+        }
+        
         view.addSubview(stackViewMain)
         NSLayoutConstraint.activate([
             stackViewMain.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5),
@@ -80,7 +85,7 @@ class ViewController: UIViewController {
         
         // stackview operator
         addButtonInStackView(stackViewOperator, array: ["×", "-", "+"])
-        
+        // SnapKit (cocoapods.org)
         view.addSubview(stackViewOperator)
         NSLayoutConstraint.activate([
             buttonsListe["+"]!.widthAnchor.constraint(equalTo: buttonsListe["+"]!.heightAnchor, multiplier: 1.0),
@@ -91,7 +96,6 @@ class ViewController: UIViewController {
         ])
         
         // Point boutton
-        #warning("creation boutton avant de mettre la contrainte ???????")
         guard let buttonPoint = buttonsListe["."] else {return }
         view.addSubview( buttonPoint)
         NSLayoutConstraint.activate([
@@ -105,19 +109,19 @@ class ViewController: UIViewController {
         // zero button
         view.addSubview( buttonsListe["0"]!)
         NSLayoutConstraint.activate([
-            buttonsListe["0"]!.leftAnchor.constraint(equalTo: buttonsListe["7"]!.leftAnchor),
-            buttonsListe["0"]!.rightAnchor.constraint(equalTo: buttonsListe["."]!.leftAnchor, constant: -10),
-            buttonsListe["0"]!.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
-            buttonsListe["0"]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            zeroButton.leftAnchor.constraint(equalTo: buttonsListe["7"]!.leftAnchor),
+            zeroButton.rightAnchor.constraint(equalTo: buttonsListe["."]!.leftAnchor, constant: -10),
+            zeroButton.topAnchor.constraint(equalTo: stackViewMain.bottomAnchor, constant: 10),
+            zeroButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
 
         // egal button
         view.addSubview( buttonsListe["="]!)
         NSLayoutConstraint.activate([
-            buttonsListe["="]!.leftAnchor.constraint(equalTo:buttonsListe["."]!.rightAnchor , constant: 10),
-            buttonsListe["="]!.widthAnchor.constraint(equalTo: buttonsListe["."]!.widthAnchor),
-            buttonsListe["="]!.topAnchor.constraint(equalTo: stackViewOperator.bottomAnchor, constant: 10),
-            buttonsListe["="]!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            equalButton.leftAnchor.constraint(equalTo:buttonsListe["."]!.rightAnchor , constant: 10),
+            equalButton.widthAnchor.constraint(equalTo: buttonsListe["."]!.widthAnchor),
+            equalButton.topAnchor.constraint(equalTo: stackViewOperator.bottomAnchor, constant: 10),
+            equalButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
 

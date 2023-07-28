@@ -7,7 +7,7 @@
 //
 
 import UIKit
-#warning ("pourquoi final")
+
 final class CalculatorButton: UIButton {
 
         override init(frame : CGRect){
@@ -15,7 +15,6 @@ final class CalculatorButton: UIButton {
         }
         
         init(sign: CalculatorSigns) {
-            #warning("frame")
             super.init(frame: .zero)
             self.setTitle(sign.rawValue, for: .normal)
             self.setTitleColor(sign.textColor, for: .normal)
